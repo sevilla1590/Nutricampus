@@ -5,7 +5,7 @@
     <!-- Encabezado -->
     <header class="bg-yellow-100 py-6 text-center">
         <div class="max-w-4xl mx-auto">
-            <p class="text-lg font-semibold text-gray-700">Envíos a rápidos • Sin suscripciones, sin compromisos • Platos a partir de $10.00 • Comida casera • Personaliza tus preferencias</p>
+            <p class="text-lg font-semibold text-gray-700">Envíos a rápidos askjdslakjdlasjkdlskaj• Sin suscripciones, sin compromisos • Platos a partir de $10.00 • Comida casera • Personaliza tus preferencias</p>
             <h1 class="text-4xl font-bold text-orange-600 mt-2">Comer bien es el primer paso hacia el éxito académico.</h1>
             <div class="mt-4 flex justify-center space-x-4">
                 <button class="bg-yellow-500 text-white font-semibold py-2 px-4 rounded hover:bg-yellow-600">Pedir Ahora</button>
