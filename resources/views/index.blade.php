@@ -46,23 +46,32 @@
         <h2 class="text-3xl font-semibold text-orange-600">Menús Del Día</h2>
         <div class="mt-8 grid grid-cols-4 gap-6">
         <div class="mt-8 grid grid-cols-4 gap-6">
-    @foreach($productos as $producto)
-        <div class="bg-white rounded-lg shadow-md p-4">
-            <img src="{{ asset($producto->imagen ?? 'images/default.png') }}" alt="{{ $producto->nombre }}" class="w-full h-32 object-cover rounded">
-            <a href="{{ route('producto.detalle', ['id' => $producto->id]) }}">
-                <h3 class="mt-4 text-lg font-semibold text-gray-700">{{ $producto->nombre }}</h3>
-            </a>
-            <p class="text-gray-500">(450 gr)</p>
-            <p class="text-gray-800 font-bold">${{ number_format($producto->precio, 2) }}</p>
+        @foreach($productos as $producto)
+    <div class="bg-white rounded-lg shadow-md p-4">
+        <img src="{{ asset($producto->imagen ?? 'images/default.png') }}" alt="{{ $producto->nombre }}" class="w-full h-32 object-cover rounded">
+        <a href="{{ route('producto.detalle', ['id' => $producto->id]) }}">
+            <h3 class="mt-4 text-lg font-semibold text-gray-700">{{ $producto->nombre }}</h3>
+        </a>
+        <p class="text-gray-500">(450 gr)</p>
+        <p class="text-gray-800 font-bold">${{ number_format($producto->precio, 2) }}</p>
+        
+        @if(auth()->check())
+            <!-- Mostrar botón de añadir al carrito si está autenticado -->
             <form action="{{ route('carrito.agregar') }}" method="POST">
-    @csrf
-    <input type="hidden" name="id" value="{{ $producto->id }}">
-    <button type="submit" class="mt-4 bg-yellow-500 text-white font-semibold py-2 w-full rounded hover:bg-yellow-600">
-        Añadir al carrito
-    </button>
-</form>
-        </div>
-    @endforeach
+                @csrf
+                <input type="hidden" name="id" value="{{ $producto->id }}">
+                <button type="submit" class="mt-4 bg-yellow-500 text-white font-semibold py-2 w-full rounded hover:bg-yellow-600">
+                    Añadir al carrito
+                </button>
+            </form>
+        @else
+            <!-- Redirigir al login si no está autenticado -->
+            <a href="{{ route('login') }}" class="mt-4 bg-red-500 text-white font-semibold py-2 w-full rounded text-center hover:bg-red-600">
+                Inicia sesión para añadir al carrito
+            </a>
+        @endif
+    </div>
+@endforeach
 </div>
 
         </div>

@@ -39,20 +39,23 @@
 
             <!-- Price and Add to Cart -->
             <div class="flex items-center">
-                <span class="text-2xl font-bold text-green-600 mr-6">S/ {{ number_format($producto->precio, 2) }}</span>
-                <form action="{{ route('carrito.agregar') }}" method="POST">
-    @csrf
-    <input type="hidden" name="id" value="{{ $producto->id }}">
-    <button type="submit" class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-2 px-4 rounded-lg focus:outline-none">
-        Añadir al carrito
-    </button>
-</form>
-
-                <!--<div class="ml-4">
-                    <input type="number" value="1" min="1" class="w-12 text-center bg-gray-200 rounded-md">
-                </div> -->
-            </div>
-        </div>
-    </div>
+    <span class="text-2xl font-bold text-green-600 mr-6">S/ {{ number_format($producto->precio, 2) }}</span>
+    
+    @if(auth()->check())
+        <!-- Mostrar botón de añadir al carrito si está autenticado -->
+        <form action="{{ route('carrito.agregar') }}" method="POST">
+            @csrf
+            <input type="hidden" name="id" value="{{ $producto->id }}">
+            <button type="submit" class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-2 px-4 rounded-lg focus:outline-none">
+                Añadir al carrito
+            </button>
+        </form>
+    @else
+        <!-- Redirigir al login si no está autenticado -->
+        <a href="{{ route('login') }}" class="bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600">
+            Inicia sesión para añadir al carrito
+        </a>
+    @endif
 </div>
+
 @endsection
