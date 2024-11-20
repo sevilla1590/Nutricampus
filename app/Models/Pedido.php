@@ -9,7 +9,13 @@ class Pedido extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['fecha', 'total', 'estado_pago', 'estado'];
+    // Especifica el nombre correcto de la tabla
+    protected $table = 'pedido'; 
+
+    // Si tienes una clave primaria personalizada, defínela
+    protected $primaryKey = 'id'; 
+
+    protected $fillable = ['id_cliente', 'fecha', 'total', 'estado']; // Campos asignables
 
     public function metodoPago()
     {

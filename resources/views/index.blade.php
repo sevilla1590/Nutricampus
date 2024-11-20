@@ -1,7 +1,12 @@
+@if(session('error'))
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+        {{ session('error') }} ¿A dónde vas, papi?
+    </div>
+@endif
 @extends('layouts.layout')
 
 @section('content')
-
+    
     <!-- Encabezado -->
     <header class="bg-yellow-100 py-6 text-center">
         <div class="max-w-4xl mx-auto">
@@ -126,7 +131,6 @@
             </div>
         </div>
     </section>
-
 </body>
 </html>
 
