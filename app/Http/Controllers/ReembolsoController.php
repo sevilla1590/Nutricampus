@@ -45,20 +45,19 @@ class ReembolsoController extends Controller
     }
 
     public function update(Request $request, Reembolso $reembolso)
-    {
-        $data = $request->validate([
-            'id_cliente' => 'required|exists:cliente,id',
-            'id_pedido' => 'required|exists:pedido,id',
-            'fecha_reembolso' => 'required|date',
-            'monto' => 'required|numeric',
-            'motivo' => 'nullable|string|max:100',
-            'estado' => 'nullable|string|max:15',
-        ]);
+{
+    // Validar los datos enviados
+    $request->validate([
+        'estado' => 'required|in:enviado,aprobado,rechazado',
+    ]);
 
-        $reembolso->update($data);
+    // Actualizar el modelo con los datos enviados
+    $reembolso->update($request->all());
 
-        return redirect()->route('reembolso.index')->with('success', 'Reembolso updated successfully');
-    }
+    // Redirigir a la lista de reembolsos con un mensaje de éxito
+    return redirect()->route('reembolsos.index')->with('success', 'Reembolso actualizado correctamente.');
+}
+
 
     public function destroy(Reembolso $reembolso)
     {

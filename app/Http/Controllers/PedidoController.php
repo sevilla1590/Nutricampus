@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class PedidoController extends Controller
 {
+    public function listarPedidos()
+    {
+        $pedidos = Pedido::all(); // Obtiene todos los pedidos
+        return view('pedido.index', compact('pedidos')); // Pasa los datos a la vista
+    }
+
     public function index()
     {
         $pedidos = Pedido::all();
@@ -39,7 +45,7 @@ class PedidoController extends Controller
 
     public function show(Pedido $pedido)
     {
-        return view('pedido.show', compact('pedido'));
+        return view('pedido.show', compact('pedido')); // Pasa el pedido directamente a la vista
     }
 
     public function edit(Pedido $pedido)
@@ -49,21 +55,17 @@ class PedidoController extends Controller
 
     public function update(Request $request, Pedido $pedido)
     {
-        $data = $request->validate([
-            'id_metodo_pago' => 'required|exists:metodo_pago,id',
-            'id_cliente' => 'required|exists:cliente,id',
-            'id_administrador' => 'nullable|exists:administrador,id',
-            'id_repartidor' => 'nullable|exists:repartidor,id',
-            'id_cocinero' => 'nullable|exists:cocinero,id',
-            'fecha' => 'required|date',
-            'total' => 'required|numeric',
-            'estado_pago' => 'required|string|max:25',
-            'estado' => 'required|string|max:25',
+        // Validar el estado
+        $request->validate([
+            'estado' => 'required|in:en cola,en preparación,en camino,entregado',
         ]);
 
-        $pedido->update($data);
+        // Actualizar el estado del pedido
+        $pedido->estado = $request->estado;
+        $pedido->save(); // Guardar los cambios en la base de datos
 
-        return redirect()->route('pedido.index')->with('success', 'Pedido updated successfully');
+        // Redirigir a la lista de pedidos con un mensaje de éxito
+        return redirect()->route('pedidos.listar')->with('success', 'El estado del pedido ha sido actualizado correctamente.');
     }
 
     public function destroy(Pedido $pedido)
