@@ -11,6 +11,7 @@ use App\Http\Controllers\CocineroController;
 use App\Http\Controllers\DetallePedidoController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\ResumenPedidoController;
 use App\Http\Controllers\ReembolsoController;
 use App\Http\Controllers\RepartidorController;
 use App\Http\Controllers\TeamController;
@@ -30,6 +31,14 @@ Route::delete('/carrito/eliminar/{id}', [CarritoController::class, 'eliminar'])-
 
 // Ruta de "Realizar Pago" protegida, que requiere autenticación y rol de cliente
 Route::get('/carrito/realizarPago', [CarritoController::class, 'realizarPago'])->name('carrito.realizarPago')->middleware(['auth:sanctum', 'verified']);
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    // Resumen de pedido
+    Route::get('/resumen-pedido', [ResumenPedidoController::class, 'mostrarResumen'])->name('resumen.pedido');
+    Route::get('/pago-exitoso', [ResumenPedidoController::class, 'pagoExitoso'])->name('pago.exitoso');
+    Route::get('/pago-fallido', [ResumenPedidoController::class, 'pagoFallido'])->name('pago.fallido');
+    Route::get('/pago-pendiente', [ResumenPedidoController::class, 'pagoPendiente'])->name('pago.pendiente');
+});
 
 //Erek 16 nov madrugada
 //Ruta de "Cambiar Estado de Pedido"
