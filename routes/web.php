@@ -1,7 +1,5 @@
 <?php
 
-
-
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
@@ -18,28 +16,26 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CarritoController;
 
-// Rutas accesibles sin autenticación
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/index', [HomeController::class, 'index'])->name('index');
-Route::get('/producto/{id}', [HomeController::class, 'detalleProducto'])->name('producto.detalle');
+// Middleware principal del grupo web
+Route::middleware('web')->group(function () {
+    // Página principal
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/producto/{id}', [HomeController::class, 'detalleProducto'])->name('producto.detalle');
 
-// Rutas del carrito sin autenticación
-Route::post('/carrito/agregar', [CarritoController::class, 'agregar'])->name('carrito.agregar');
-Route::get('/carrito', [CarritoController::class, 'verCarrito'])->name('carrito.ver');
-Route::put('/carrito/actualizar/{id}', [CarritoController::class, 'actualizar'])->name('carrito.actualizar');
-Route::delete('/carrito/eliminar/{id}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
+    // Carrito (rutas accesibles sin autenticación)
+    Route::get('/carrito', [CarritoController::class, 'verCarrito'])->name('carrito.ver');
+    Route::post('/carrito/agregar', [CarritoController::class, 'agregar'])->name('carrito.agregar');
+    Route::put('/carrito/actualizar/{id}', [CarritoController::class, 'actualizar'])->name('carrito.actualizar');
+    Route::delete('/carrito/eliminar/{id}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
 
-// Ruta de "Realizar Pago" protegida, que requiere autenticación y rol de cliente
-Route::get('/carrito/realizarPago', [CarritoController::class, 'realizarPago'])->name('carrito.realizarPago')->middleware(['auth:sanctum', 'verified']);
-
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    // Resumen de pedido
-    Route::get('/resumen-pedido', [ResumenPedidoController::class, 'mostrarResumen'])->name('resumen.pedido');
-    Route::get('/pago-exitoso', [ResumenPedidoController::class, 'pagoExitoso'])->name('pago.exitoso');
-    Route::get('/pago-fallido', [ResumenPedidoController::class, 'pagoFallido'])->name('pago.fallido');
-    Route::get('/pago-pendiente', [ResumenPedidoController::class, 'pagoPendiente'])->name('pago.pendiente');
+    // Rutas protegidas para el resumen del pedido y pagos
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // Resumen de pedido
+        Route::get('/resumen-pedido', [ResumenPedidoController::class, 'mostrarResumen'])->name('resumen.pedido');
+        Route::get('/pago-exitoso', [ResumenPedidoController::class, 'pagoExitoso'])->name('pago.exitoso');
+        Route::get('/pago-fallido', [ResumenPedidoController::class, 'pagoFallido'])->name('pago.fallido');
+    });
 });
-
 //Erek 16 nov madrugada
 //Ruta de "Cambiar Estado de Pedido"
 Route::get('/pedidos/listar', [PedidoController::class, 'listarPedidos'])->name('pedidos.listar');
