@@ -19,7 +19,7 @@
             <div class="bg-white shadow-md rounded p-4">
                 <h2 class="font-semibold text-lg">Gestión de Pedidos</h2>
                 <img src="{{ asset('images/pedidos.png') }}" alt="Pedidos" class="my-4">
-                <a href="{{ route('pedidos.index') }}" class="text-blue-500 hover:underline">Ver Pedidos</a>
+                <a href="{{ route('pedidos.listar') }}" class="text-blue-500 hover:underline">Ver Pedidos</a>
             </div>
 
             <div class="bg-white shadow-md rounded p-4">
