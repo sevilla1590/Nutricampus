@@ -43,11 +43,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 //Erek 16 nov madrugada
 //Ruta de "Cambiar Estado de Pedido"
 Route::get('/pedidos/listar', [PedidoController::class, 'listarPedidos'])->name('pedidos.listar');
-Route::put('/pedidos/{pedido}', [PedidoController::class, 'update'])->name('pedido.update');
+//Route::put('/pedidos/{pedido}', [PedidoController::class, 'update'])->name('pedido.update');
 
 //Ruta de "Gestionar reembolsos"
 Route::get('/reembolsos', [ReembolsoController::class, 'index'])->name('reembolsos.index'); // Ver lista de reembolsos
-Route::get('/reembolsos/{reembolso}/editar', [ReembolsoController::class, 'edit'])->name('reembolsos.edit');
+//Route::get('/reembolsos/{reembolso}/editar', [ReembolsoController::class, 'edit'])->name('reembolsos.edit');
 
 //Regresar a dashboard
 Route::get('/admin/dashboard', function () {return view('admindashboard');})->name('admin.dashboard');
@@ -79,7 +79,7 @@ Route::middleware([
     Route::resource('clientes', ClienteController::class);
     Route::resource('cocineros', CocineroController::class);
     Route::resource('detalle-pedidos', DetallePedidoController::class);
-    Route::resource('pedidos', PedidoController::class);
+//    Route::resource('pedidos', PedidoController::class);
     Route::resource('productos', ProductoController::class);
     Route::resource('reembolsos', ReembolsoController::class);
     Route::resource('repartidores', RepartidorController::class);
@@ -89,9 +89,9 @@ Route::middleware([
 // Proteger las vistas de pedidos para administradores
 Route::middleware(['auth'])->group(function () {
     // Lista de pedidos (index.blade.php)
-    Route::get('/pedidos/listar', function () {
+    Route::get('/pedidos/listar', function (Illuminate\Http\Request $request) {
         if (Auth::check() && Auth::user()->id_rol === 1) { // Solo administradores
-            return app(\App\Http\Controllers\PedidoController::class)->listarPedidos();
+            return app(\App\Http\Controllers\PedidoController::class)->listarPedidos($request);
         }
         return redirect()->route('home')->with('error', 'Acceso denegado.');
     })->name('pedidos.listar');
@@ -150,4 +150,10 @@ Route::middleware(['auth'])->group(function () {
         }
         return redirect()->route('dashboard')->with('error', 'Acceso denegado.');
     })->name('reembolsos.update');
+});
+
+//Rutas de vista de mis pedidos
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/mis-pedidos', [PedidoController::class, 'misPedidos'])->name('mis.pedidos');
 });

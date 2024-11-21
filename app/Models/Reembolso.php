@@ -23,7 +23,7 @@ class Reembolso extends Model
         'motivo',
         'estado',
     ];
-    
+
     public function cliente()
     {
         return $this->belongsTo(Cliente::class, 'id_cliente');
@@ -37,5 +37,15 @@ class Reembolso extends Model
     public function pedido()
     {
         return $this->belongsTo(Pedido::class, 'id_pedido');
+    }
+
+    public function producto()
+    {
+        return $this->belongsTo(Producto::class, 'id_producto', 'id');
+    }
+
+    public function reembolsos()
+    {
+        return $this->hasMany(Reembolso::class, 'id_producto');
     }
 }

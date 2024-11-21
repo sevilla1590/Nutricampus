@@ -4,13 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Models\Pedido;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PedidoController extends Controller
 {
-    public function listarPedidos()
+    public function listarPedidos(Request $request)
     {
-        $pedidos = Pedido::all(); // Obtiene todos los pedidos
+        $query = Pedido::with(['cliente','producto']);
+
+        if ($request->filled('estado')) {
+            $query->where('estado', $request->input('estado'));
+        }
+
+        $pedidos = $query->get();
         return view('pedido.index', compact('pedidos')); // Pasa los datos a la vista
+    }
+
+    public function misPedidos()
+    {
+        $cliente = Auth::user(); // Obtener el usuario autenticado
+        $pedidos = Pedido::where('id_cliente', $cliente->id)->with('producto')->get(); // Obtener pedidos del cliente
+
+        return view('cliente.mis-pedidos', compact('pedidos')); // Retornar la vista con los pedidos
     }
 
     public function index()

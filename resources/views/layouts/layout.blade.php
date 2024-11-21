@@ -80,7 +80,7 @@
     <nav class="mt-4">
         <ul class="flex space-x-64 text-white font-bold uppercase">
             <li><a href="#" class="hover:text-yellow-400">Platos del día</a></li>
-            <li><a href="#" class="hover:text-yellow-400">Servicios</a></li>
+            <li><a href="{{ route('mis.pedidos') }}" class="hover:text-yellow-400">Mis pedidos</a></li>
             <li><a href="#" class="hover:text-yellow-400">Contáctanos</a></li>
             <li><a href="#" class="hover:text-yellow-400">FAQ</a></li>
         </ul>

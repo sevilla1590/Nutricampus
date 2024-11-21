@@ -7,9 +7,17 @@ use Illuminate\Http\Request;
 
 class ReembolsoController extends Controller
 {
+    //public function index()
+    //{
+    //    $reembolsos = Reembolso::all();
+    //    return view('reembolso.index', compact('reembolsos'));
+    //}
+
     public function index()
     {
-        $reembolsos = Reembolso::all();
+        $query = Reembolso::with(['cliente','producto']);
+
+        $reembolsos = $query->get();
         return view('reembolso.index', compact('reembolsos'));
     }
 
