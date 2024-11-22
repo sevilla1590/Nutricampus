@@ -18,6 +18,10 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
                 lily: ['Lily Script One', 'cursive'],
+                alfa: ['"Alfa Slab One"', 'cursive'],
+                charm: ['"Charm"', 'sans-serif'],
+                crimson: ['"Crimson Text"', 'serif'],
+                amatic: ['"Amatic SC"', 'cursive'],
             },
             colors: {
                 customBeige: '#FFF5E7',

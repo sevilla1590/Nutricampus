@@ -20,6 +20,15 @@ class PedidoController extends Controller
         return view('pedido.index', compact('pedidos')); // Pasa los datos a la vista
     }
 
+    public function verEstado($id)
+    {
+        // Buscar el pedido con su producto relacionado
+        $pedido = Pedido::with('producto')->findOrFail($id);
+
+        // Enviar el pedido a la vista
+        return view('cliente.estado', compact('pedido'));
+    }
+
     public function misPedidos()
     {
         $cliente = Auth::user(); // Obtener el usuario autenticado

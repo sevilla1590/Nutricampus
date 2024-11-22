@@ -9,6 +9,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lily+Script+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Charm&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap" rel="stylesheet">
+
+
     <link rel="stylesheet" href="{{ asset('resources/css/app.css') }}">
     <!-- Font Awesome para los iconos de redes sociales y pago -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -53,9 +59,9 @@
                     </div>
                 </div>
             @else
-                <a href="{{ route('login') }}" class="text-white flex flex-col items-center">
+                <a href="{{ route('login') }}" class="text-white flex flex-col items-center hover:text-yellow-400"">
                     <i class="fas fa-user text-2xl"></i>
-                    <span class="text-sm">Iniciar sesión</span>
+                    <span class="text-sm hover:text-yellow-400">Iniciar sesión</span>
                 </a>
             @endauth
 
@@ -93,11 +99,11 @@
 
 <!-- Footer -->
 <footer class="bg-teal-700 text-white py-8">
-    <div class="max-w-6xl mx-auto px-8 flex flex-wrap justify-between space-y-4 lg:space-y-0">
+    <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-6 px-8">
         <!-- Logo y redes sociales -->
-        <div class="flex flex-col items-center lg:items-start">
-            <img src="{{ asset('images/logo_footer.png') }}" alt="Nutricampus Logo" class="h-12 mb-2">
-            <p class="font-bold mb-2">Visita nuestras redes</p>
+        <div class="flex flex-col items-center md:items-start">
+            <img src="{{ asset('images/NutricampusLogo.png') }}" alt="Nutricampus Logo" class="h-16 mb-4">
+            <p class="font-bold mb-4 text-center md:text-left">Visita nuestras redes</p>
             <div class="flex space-x-4">
                 <a href="#" class="text-white text-2xl hover:text-yellow-400"><i class="fab fa-facebook"></i></a>
                 <a href="#" class="text-white text-2xl hover:text-yellow-400"><i class="fab fa-instagram"></i></a>
@@ -107,40 +113,40 @@
 
         <!-- Empresa -->
         <div>
-            <h3 class="font-bold text-lg mb-2">Empresa</h3>
-            <ul class="space-y-1">
-                <li><a href="#" class="hover:underline">¿Quiénes somos?</a></li>
-                <li><a href="#" class="hover:underline">¿Cómo funciona?</a></li>
-                <li><a href="#" class="hover:underline">Seguimientos de envíos</a></li>
+            <h3 class="font-bold text-lg mb-4">Empresa</h3>
+            <ul class="space-y-2">
+                <li><a href="#" class="hover:text-yellow-400">¿Quiénes somos?</a></li>
+                <li><a href="#" class="hover:text-yellow-400">¿Cómo funciona?</a></li>
+                <li><a href="#" class="hover:text-yellow-400">Seguimientos de envíos</a></li>
             </ul>
         </div>
 
         <!-- Servicios -->
         <div>
-            <h3 class="font-bold text-lg mb-2">Servicios</h3>
-            <ul class="space-y-1">
-                <li><a href="#" class="hover:underline">Platillos del día</a></li>
+            <h3 class="font-bold text-lg mb-4">Servicios</h3>
+            <ul class="space-y-2">
+                <li><a href="#" class="hover:text-yellow-400">Platillos del día</a></li>
             </ul>
         </div>
 
         <!-- Contacto -->
         <div>
-            <h3 class="font-bold text-lg mb-2">Contáctanos</h3>
-            <p>(01) 777-4343</p>
-            <p>info@nutricampus.com</p>
+            <h3 class="font-bold text-lg mb-4 ">Contáctanos</h3>
+            <p class="mb-2 hover:text-yellow-400">(01) 777-4343</p>
+            <p class="mb-2 hover:text-yellow-400">info@nutricampus.com</p>
         </div>
 
         <!-- Medios de pago -->
-        <div class="flex flex-col items-center lg:items-start">
-            <h3 class="font-bold text-lg mb-2">Medios de Pago</h3>
+        <div>
+            <h3 class="font-bold text-lg mb-4">Medios de Pago</h3>
             <div class="flex space-x-4">
-                <i class="fab fa-cc-mastercard text-4xl"></i>
-                <i class="fab fa-cc-visa text-4xl"></i>
+                <i class="fab fa-cc-mastercard text-4xl hover:text-yellow-400"></i>
+                <i class="fab fa-cc-visa text-4xl hover:text-yellow-400"></i>
             </div>
         </div>
     </div>
-    <div class="text-center mt-8">
-        <span class="font-bold">&copy; 2024 Nutricampus. Todos los derechos reservados.</span>
+    <div class="mt-8 text-center border-t border-teal-600 pt-4">
+        <span>&copy; 2024 Nutricampus. Todos los derechos reservados.</span>
     </div>
 </footer>
 

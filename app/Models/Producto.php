@@ -11,7 +11,7 @@ class Producto extends Model
 
     protected $table = 'producto'; // Especifica el nombre de la tabla
 
-    protected $fillable = ['nombre', 'precio', 'descripcion', 'disponibilidad'];
+    protected $fillable = ['nombre', 'carta', 'precio', 'descripcion', 'disponibilidad'];
 
     public function detalles()
     {

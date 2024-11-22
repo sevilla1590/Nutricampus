@@ -68,7 +68,7 @@ Route::middleware([
             if ($user->id_rol === 1) { // Ejemplo: id_rol 1 para administrador
                 return view('admindashboard'); // Vista específica para administradores
             }
-            return redirect()->route('home'); // Redirigir a home si no es admin
+            return redirect()->route('index'); // Redirigir a home si no es admin
         }
         return redirect()->route('login'); // Si el usuario no está autenticado
     })->name('dashboard'); // Nombrar correctamente como "dashboard"
@@ -157,3 +157,16 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/mis-pedidos', [PedidoController::class, 'misPedidos'])->name('mis.pedidos');
 });
+
+Route::get('/pedido/{id}/estado', [PedidoController::class, 'verEstado'])->name('pedido.estado');
+
+// Rutas para gestionar, agregar y seleccionar menu
+
+Route::get('/menu/gestionar', [ProductoController::class, 'gestionarMenu'])->name('productos.gestionarMenu');
+Route::post('/menu/actualizar-carta', [ProductoController::class, 'actualizarCarta'])->name('productos.actualizarCarta');
+Route::post('/menu/crear-producto', [ProductoController::class, 'crearProducto'])->name('productos.crearProducto');
+
+// Ruta para ver el menu ya procesado por administrador
+
+Route::get('/index', [ProductoController::class, 'index'])->name('index');
+Route::get('/', [ProductoController::class, 'index'])->name('index');

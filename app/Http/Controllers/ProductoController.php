@@ -9,8 +9,8 @@ class ProductoController extends Controller
 {
     public function index()
     {
-        $productos = Producto::all();
-        return view('producto.index', compact('productos'));
+        $productos = Producto::where('carta', 1)->get();
+        return view('index', compact('productos'));
     }
 
     public function create()
@@ -60,5 +60,45 @@ class ProductoController extends Controller
     {
         $producto->delete();
         return redirect()->route('producto.index')->with('success', 'Producto deleted successfully');
+    }
+
+    //Erik: Gestionar menú
+    public function gestionarMenu()
+    {
+        $productos = Producto::all(); // Todos los productos
+        $menu = Producto::where('carta', true)->get(); // Productos seleccionados para el menú
+
+        return view('menu.gestionar-menu', compact('productos', 'menu')); // Cambiar el nombre de la vista aquí
+    }
+
+    public function actualizarCarta(Request $request)
+    {
+        // Validar que máximo 4 productos pueden estar en la carta
+        $productosSeleccionados = $request->productos ?? [];
+        if (count($productosSeleccionados) > 4) {
+            return redirect()->back()->with('error', 'Solo puedes seleccionar hasta 4 productos para la carta.');
+        }
+
+        // Desmarcar todos los productos de la carta
+        Producto::query()->update(['carta' => false]);
+
+        // Marcar los productos seleccionados como destacados en la carta
+        Producto::whereIn('id', $productosSeleccionados)->update(['carta' => true]);
+
+        return redirect()->route('productos.gestionarMenu')->with('success', 'La carta fue actualizada correctamente.');
+    }
+
+    public function crearProducto(Request $request)
+    {
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'precio' => 'required|numeric|min:0',
+            'descripcion' => 'nullable|string',
+            'disponibilidad' => 'required|integer|min:0',
+        ]);
+
+        Producto::create($request->all());
+
+        return redirect()->route('productos.gestionarMenu')->with('success', 'Producto creado correctamente.');
     }
 }

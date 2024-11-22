@@ -16,6 +16,6 @@
 
         <a href="{{ route('pedidos.listar') }}" class="text-blue-500 hover:underline mt-4 block">
             Volver a la lista de pedidos
-        </a>
+        </a>    
     </div>
 @endsection
