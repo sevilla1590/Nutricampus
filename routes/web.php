@@ -15,6 +15,7 @@ use App\Http\Controllers\RepartidorController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CarritoController;
+use App\Http\Controllers\PlatilloController;
 
 // Middleware principal del grupo web
 Route::middleware('web')->group(function () {
@@ -170,3 +171,8 @@ Route::put('/menu/editar-producto/{id}', [ProductoController::class, 'editarProd
 
 Route::get('/index', [ProductoController::class, 'index'])->name('index');
 Route::get('/', [ProductoController::class, 'index'])->name('home');
+
+//Ruta crud platilos
+//Route::resource('platillo',PlatilloController::class);
+Route::get('platillo', [PlatilloController::class, 'index'])->name('platillo.index');Route::get('platillo', [PlatilloController::class, 'index'])->name('platillo.index');
+//Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');

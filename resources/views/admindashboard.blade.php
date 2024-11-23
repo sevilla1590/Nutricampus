@@ -32,6 +32,12 @@
                 <img src="{{ asset('images/menu.png') }}" alt="Gestionar Menú" class="my-4">
                 <a href="{{ route('productos.gestionarMenu') }}" class="text-blue-500 hover:underline">Ver Gestionar Menú</a>
             </div>
+
+            <div class="bg-white shadow-md rounded p-4">
+                <h2 class="font-semibold text-lg">Gestionar Platillos</h2>
+                <img src="{{ asset('images/menu.png') }}" alt="Gestionar Platillos" class="my-4">
+                <a href="{{ route('platillo.index') }}" class="text-blue-500 hover:underline">Ver Gestionar Platillos</a>
+            </div>
         </div>
     </div>
 @endsection

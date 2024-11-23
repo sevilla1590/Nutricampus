@@ -69,7 +69,7 @@
             <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 @foreach ($productos as $producto)
                     <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
-                        <img src="{{ asset($producto->imagen ?? 'images/currypollo_con_arroz.jpg') }}"
+                        <img src="{{ asset('images/' . $producto->id . '.jpg') }}" 
                             alt="{{ $producto->nombre }}" class="w-full h-32 object-cover rounded">
                         <a href="{{ route('producto.detalle', ['id' => $producto->id]) }}">
                             <h3 class="mt-4 text-lg font-semibold text-gray-800">{{ $producto->nombre }}</h3>
