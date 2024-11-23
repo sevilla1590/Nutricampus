@@ -25,4 +25,8 @@ class RepartidorSeeder extends Seeder
             'updated_at' => now(),
         ]);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 805e3361fbf3f8cf84d64439bb09f4c51965dc6d

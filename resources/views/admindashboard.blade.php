@@ -26,6 +26,12 @@
                 <h2 class="font-semibold text-lg">Gestión de Usuarios</h2>
                 <img src="{{ asset('images/usuarios.png') }}" alt="Usuarios" class="my-4">
             </div>
+
+            <div class="bg-white shadow-md rounded p-4">
+                <h2 class="font-semibold text-lg">Gestionar Menú</h2>
+                <img src="{{ asset('images/menu.png') }}" alt="Gestionar Menú" class="my-4">
+                <a href="{{ route('productos.gestionarMenu') }}" class="text-blue-500 hover:underline">Ver Gestionar Menú</a>
+            </div>
         </div>
     </div>
 @endsection

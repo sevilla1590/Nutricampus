@@ -16,6 +16,10 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CarritoController;
 
+<<<<<<< HEAD
+=======
+//alsdkasjdklj
+>>>>>>> 805e3361fbf3f8cf84d64439bb09f4c51965dc6d
 // Middleware principal del grupo web
 Route::middleware('web')->group(function () {
     // Página principal
@@ -36,6 +40,11 @@ Route::middleware('web')->group(function () {
         Route::get('/pago-fallido', [ResumenPedidoController::class, 'pagoFallido'])->name('pago.fallido');
     });
 });
+<<<<<<< HEAD
+=======
+// asñdlkaskl
+
+>>>>>>> 805e3361fbf3f8cf84d64439bb09f4c51965dc6d
 //Erek 16 nov madrugada
 //Ruta de "Cambiar Estado de Pedido"
 Route::get('/pedidos/listar', [PedidoController::class, 'listarPedidos'])->name('pedidos.listar');
@@ -64,7 +73,7 @@ Route::middleware([
             if ($user->id_rol === 1) { // Ejemplo: id_rol 1 para administrador
                 return view('admindashboard'); // Vista específica para administradores
             }
-            return redirect()->route('home'); // Redirigir a home si no es admin
+            return redirect()->route('index'); // Redirigir a home si no es admin
         }
         return redirect()->route('login'); // Si el usuario no está autenticado
     })->name('dashboard'); // Nombrar correctamente como "dashboard"
@@ -153,3 +162,16 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/mis-pedidos', [PedidoController::class, 'misPedidos'])->name('mis.pedidos');
 });
+
+Route::get('/pedido/{id}/estado', [PedidoController::class, 'verEstado'])->name('pedido.estado');
+
+// Rutas para gestionar, agregar y seleccionar menu
+
+Route::get('/menu/gestionar', [ProductoController::class, 'gestionarMenu'])->name('productos.gestionarMenu');
+Route::post('/menu/actualizar-carta', [ProductoController::class, 'actualizarCarta'])->name('productos.actualizarCarta');
+Route::post('/menu/crear-producto', [ProductoController::class, 'crearProducto'])->name('productos.crearProducto');
+
+// Ruta para ver el menu ya procesado por administrador
+
+Route::get('/index', [ProductoController::class, 'index'])->name('index');
+Route::get('/', [ProductoController::class, 'index'])->name('home');

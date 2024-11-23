@@ -4,7 +4,7 @@
 <div class="container mx-auto my-8 px-4">
     <!-- Breadcrumb -->
     <div class="text-sm text-gray-500 mb-4">
-        <a href="{{ route('home') }}" class="hover:underline">Home</a> 
+        <a href="{{ route('index') }}" class="hover:underline">Home</a> 
         <span> / </span>
         <span class="text-gray-700">{{ $producto->nombre }}</span>
     </div>
