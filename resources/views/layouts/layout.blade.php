@@ -13,6 +13,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Charm&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
 
     <link rel="stylesheet" href="{{ asset('resources/css/app.css') }}">
@@ -26,15 +30,17 @@
     <div class="flex items-center justify-between w-full px-8">
         <!-- Logo -->
         <div class="flex-shrink-0">
-            <img src="{{ asset('images/NutricampusLogo.png') }}" alt="Nutricampus Logo" class="h-16">
+        <a href="{{ route('home') }}">
+                    <img src="{{ asset('images/NutricampusLogo.png') }}" alt="Nutricampus Logo" class="h-16">
+                </a>
         </div>
 
         <!-- Barra de búsqueda -->
-        <form class="flex-1 flex justify-center" action="#" method="GET">
+        <!--<form class="flex-1 flex justify-center" action="#" method="GET">
             <input type="text"
                 class="w-3/5 py-2 px-4 rounded-full bg-gray-200 text-gray-600 placeholder-gray-500"
                 placeholder="Buscar en la página...">
-        </form>
+        </form>-->
 
         <!-- Iconos de usuario y carrito -->
         <div class="flex items-center space-x-6">
@@ -85,10 +91,10 @@
     <!-- Navegación -->
     <nav class="mt-4">
         <ul class="flex space-x-64 text-white font-bold uppercase">
-            <li><a href="#" class="hover:text-yellow-400">Platos del día</a></li>
+        <li><a href="#platillos" class="hover:text-yellow-400">Platos del día</a></li>
             <li><a href="{{ route('mis.pedidos') }}" class="hover:text-yellow-400">Mis pedidos</a></li>
-            <li><a href="#" class="hover:text-yellow-400">Contáctanos</a></li>
-            <li><a href="#" class="hover:text-yellow-400">FAQ</a></li>
+            <li><a href="{{ route('contactanos') }}" class="hover:text-yellow-400">Contáctanos</a></li>
+            <li><a href="#preguntas" class="hover:text-yellow-400">FAQ</a></li>
         </ul>
     </nav>
 </header>
@@ -99,74 +105,78 @@
 
 <!-- Footer -->
 <footer class="bg-teal-700 text-white py-8">
-    <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-6 px-8">
-        <!-- Logo y redes sociales -->
-        <div class="flex flex-col items-center md:items-start">
-            <img src="{{ asset('images/NutricampusLogo.png') }}" alt="Nutricampus Logo" class="h-16 mb-4">
-            <p class="font-bold mb-4 text-center md:text-left">Visita nuestras redes</p>
-            <div class="flex space-x-4">
-                <a href="#" class="text-white text-2xl hover:text-yellow-400"><i class="fab fa-facebook"></i></a>
-                <a href="#" class="text-white text-2xl hover:text-yellow-400"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="text-white text-2xl hover:text-yellow-400"><i class="fab fa-tiktok"></i></a>
+        <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-6 px-8">
+            <!-- Logo y redes sociales -->
+            <div class="flex flex-col items-center md:items-start">
+                <a href="{{ route('home') }}">
+                    <img src="{{ asset('images/NutricampusLogo.png') }}" alt="Nutricampus Logo" class="h-16 mb-4">
+                </a>
+                <p class="font-bold mb-4 text-center md:text-left">Visita nuestras redes</p>
+                <div class="flex space-x-4">
+                    <a href="https://www.facebook.com/nutricampus.pt"
+                        class="text-white text-2xl hover:text-yellow-400"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/nutricampusup?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                        class="text-white text-2xl hover:text-yellow-400"><i class="fab fa-instagram"></i></a>
+                    <a href="https://acortar.link/3A8i6X" class="text-white text-2xl hover:text-yellow-400"><i
+                            class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+
+            <!-- Empresa -->
+            <div>
+                <h3 class="font-bold text-lg mb-4">Empresa</h3>
+                <ul class="space-y-2">
+                    <li><a href="{{ route('quienes-somos') }}" class="hover:text-yellow-400">¿Quiénes somos?</a></li>
+                </ul>
+            </div>
+
+            <!-- Servicios -->
+            <div>
+                <h3 class="font-bold text-lg mb-4">Servicios</h3>
+                <ul class="space-y-2">
+                    <li><a href="#platillos" class="hover:text-yellow-400">Platillos del día</a></li>
+                </ul>
+            </div>
+
+            <!-- Contacto -->
+            <div>
+                <h3 class="font-bold text-lg mb-4 ">Contáctanos</h3>
+                <p class="mb-2">(01) 777-4343</p>
+                <p class="mb-2">info@nutricampus.com</p>
+            </div>
+
+            <!-- Medios de pago -->
+            <div>
+                <h3 class="font-bold text-lg mb-4">Medios de Pago</h3>
+                <div class="flex space-x-4">
+                    <i class="fab fa-cc-mastercard text-4xl"></i>
+                    <i class="fab fa-cc-visa text-4xl"></i>
+                </div>
             </div>
         </div>
-
-        <!-- Empresa -->
-        <div>
-            <h3 class="font-bold text-lg mb-4">Empresa</h3>
-            <ul class="space-y-2">
-                <li><a href="#" class="hover:text-yellow-400">¿Quiénes somos?</a></li>
-                <li><a href="#" class="hover:text-yellow-400">¿Cómo funciona?</a></li>
-                <li><a href="#" class="hover:text-yellow-400">Seguimientos de envíos</a></li>
-            </ul>
+        <div class="mt-8 text-center border-t border-teal-600 pt-4">
+            <span>&copy; 2024 Nutricampus. Todos los derechos reservados.</span>
         </div>
+    </footer>
 
-        <!-- Servicios -->
-        <div>
-            <h3 class="font-bold text-lg mb-4">Servicios</h3>
-            <ul class="space-y-2">
-                <li><a href="#" class="hover:text-yellow-400">Platillos del día</a></li>
-            </ul>
-        </div>
+    <!-- JavaScript para el menú desplegable del usuario -->
+    <script>
+        document.getElementById('userMenuButton').addEventListener('click', function() {
+            const userMenu = document.getElementById('userMenu');
+            userMenu.classList.toggle('hidden');
+        });
 
-        <!-- Contacto -->
-        <div>
-            <h3 class="font-bold text-lg mb-4 ">Contáctanos</h3>
-            <p class="mb-2 hover:text-yellow-400">(01) 777-4343</p>
-            <p class="mb-2 hover:text-yellow-400">info@nutricampus.com</p>
-        </div>
+        // Cerrar el menú cuando se hace clic fuera de él
+        document.addEventListener('click', function(event) {
+            const userMenu = document.getElementById('userMenu');
+            const button = document.getElementById('userMenuButton');
 
-        <!-- Medios de pago -->
-        <div>
-            <h3 class="font-bold text-lg mb-4">Medios de Pago</h3>
-            <div class="flex space-x-4">
-                <i class="fab fa-cc-mastercard text-4xl hover:text-yellow-400"></i>
-                <i class="fab fa-cc-visa text-4xl hover:text-yellow-400"></i>
-            </div>
-        </div>
-    </div>
-    <div class="mt-8 text-center border-t border-teal-600 pt-4">
-        <span>&copy; 2024 Nutricampus. Todos los derechos reservados.</span>
-    </div>
-</footer>
-
-<!-- JavaScript para el menú desplegable del usuario -->
-<script>
-    document.getElementById('userMenuButton').addEventListener('click', function () {
-        const userMenu = document.getElementById('userMenu');
-        userMenu.classList.toggle('hidden');
-    });
-
-    // Cerrar el menú cuando se hace clic fuera de él
-    document.addEventListener('click', function (event) {
-        const userMenu = document.getElementById('userMenu');
-        const button = document.getElementById('userMenuButton');
-        
-        if (!button.contains(event.target) && !userMenu.contains(event.target)) {
-            userMenu.classList.add('hidden');
-        }
-    });
-</script>
+            if (!button.contains(event.target) && !userMenu.contains(event.target)) {
+                userMenu.classList.add('hidden');
+            }
+        });
+    </script>
 
 </body>
+
 </html>

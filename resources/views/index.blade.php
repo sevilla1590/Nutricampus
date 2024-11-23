@@ -16,10 +16,16 @@
                 <li>• Comida casera</li>
                 <li>• Personaliza tus preferencias</li>
             </ul>
-            <button class="bg-yellow-500 ml-20 text-white font-alfa py-2 px-4 rounded hover:bg-yellow-600">Pedir
-                Ahora</button>
-            <button class="bg-teal-500 text-white font-alfa py-2 px-4 rounded hover:bg-teal-600">Cómo
-                Funciona</button>
+            <a href="#platillos"><button
+                    class="bg-yellow-500 ml-2 text-white font-alfa py-2 px-4 rounded hover:bg-yellow-600">Pedir
+                    Ahora</button>
+            </a>
+            <a href="{{ route('nuestros-servicios') }}">
+                <button class="bg-teal-500 text-white font-alfa py-2 px-4 rounded hover:bg-teal-600">
+                    Nuestros Servicios
+                </button>
+            </a>
+
         </div>
         <div>
             <h1 class="text-5xl font-lily text-customNaranja ml-24 text-center">Comer bien <br> es el primer paso <br> hacia
@@ -32,7 +38,7 @@
     </div>
     <!-- Proceso de Pedido -->
     <div class="bg-white shadow-lg rounded-lg p-8">
-        <h2 class="text-2xl font-semibold text-gray-800 text-center mt-4">Come bien en cuatro pasos</h2>
+        <h2 class="text-2xl font-bold font-fraunces text-gray-800 text-center mt-4">COME BIEN EN CUATRO PASOS</h2>
         <div class="py-10 mt-0 flex justify-center gap-16">
             <div>
                 <p class="text-lg font-alfa text-center">1. Elige</p>
@@ -63,13 +69,13 @@
 
 
     <!-- Menús del Día -->
-    <section class="py-10 bg-gray-50">
+    <section id="platillos" class="py-10 bg-gray-50">
         <div class="max-w-5xl mx-auto text-center">
             <h2 class="text-6xl font-semibold font-charm text-customNaranja">Menú Del Día</h2>
             <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 @foreach ($productos as $producto)
                     <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
-                        <img src="{{ asset('images/' . $producto->id . '.jpg') }}" 
+                        <img src="{{ asset('images/' . $producto->id . '.jpg') }}"
                             alt="{{ $producto->nombre }}" class="w-full h-32 object-cover rounded">
                         <a href="{{ route('producto.detalle', ['id' => $producto->id]) }}">
                             <h3 class="mt-4 text-lg font-semibold text-gray-800">{{ $producto->nombre }}</h3>
@@ -104,38 +110,38 @@
     <section class="py-10 bg-white">
         <div class="max-w-5xl mx-auto text-center">
             <!-- Título -->
-            <h2 class="text-3xl font-bold text-gray-900 mb-6">Beneficios de comer sano fuera de casa</h2>
+            <h2 class="text-3xl font-bold font-interTight text-gray-900 mb-6">Beneficios de comer sano fuera de casa</h2>
             <!-- Contenedor de beneficios -->
             <div class="flex justify-between items-center">
                 <div>
                     <div>
                         <div class="flex justify-center"><img src="{{ asset('images/plata.png') }}" alt=""></div>
-                        <p class="font-bold text-gray-800 mb-16">Ahorra dinero</p>
+                        <p class="font-bold text-gray-800 mb-24">Ahorra dinero</p>
                     </div>
 
                     <!-- Controla tus porciones -->
                     <div>
                         <div class="flex justify-center"><img src="{{ asset('images/comida.png') }}" alt=""></div>
-                        <p class="font-bold text-gray-800">Controla tus porciones</p>
+                        <p class="font-bold text-gray-800 mb-24">Controla tus porciones</p>
                     </div>
                 </div>
 
                 <!-- Imagen principal en el centro -->
                 <div>
                     <img src="{{ asset('images/plato_central.png') }}" alt="Plato saludable"
-                        class="w-40 h-40 rounded-full shadow-md">
+                        class="w-60 h-60 rounded-full shadow-md">
                 </div>
 
                 <div>
                     <div>
                         <div class="flex justify-center"><img src="{{ asset('images/salud.png') }}" alt=""></div>
-                        <p class="font-bold text-gray-800 mb-16">Mejora tu salud</p>
+                        <p class="font-bold text-gray-800 mb-24">Mejora tu salud</p>
                     </div>
 
                     <!-- Ahorra tiempo -->
                     <div>
                         <div class="flex justify-center"><img src="{{ asset('images/hora.png') }}" alt=""></div>
-                        <p class="font-bold text-gray-800">Ahorra tiempo</p>
+                        <p class="font-bold text-gray-800 mb-24">Ahorra tiempo</p>
                     </div>
                 </div>
 
@@ -145,7 +151,7 @@
 
 
     <!-- Preguntas Frecuentes -->
-    <section class="py-10 bg-gray-50">
+    <section id="preguntas" class="py-10 bg-gray-50">
         <div class="max-w-5xl mx-auto text-center">
             <h2 class="text-3xl font-semibold font-crimson text-gray-800 mb-8">¿Tienes alguna duda?</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -170,8 +176,8 @@
                     </button>
                     <div
                         class="overflow-hidden transition-all duration-500 transform scale-95 opacity-0 max-h-0 mt-2 text-left">
-                        <p class="text-gray-600">Sí, puedes seleccionar una hora específica al realizar tu pedido, dentro de
-                            nuestro horario disponible.</p>
+                        <p class="text-gray-600">Sí, en Nutricampus puedes personalizar tu plato al momento de realizar la
+                            reserva, ajustándolo a tus preferencias y necesidades alimenticias.</p>
                     </div>
                 </div>
 
@@ -183,8 +189,8 @@
                     </button>
                     <div
                         class="overflow-hidden transition-all duration-500 transform scale-95 opacity-0 max-h-0 mt-2 text-left">
-                        <p class="text-gray-600">Sí, nuestros menús son personalizables para adaptarse a tus necesidades
-                            dietéticas.</p>
+                        <p class="text-gray-600">Sí, puedes seleccionar una hora específica al realizar tu pedido, dentro de
+                            nuestro horario disponible.</p>
                     </div>
                 </div>
 
@@ -196,8 +202,9 @@
                     </button>
                     <div
                         class="overflow-hidden transition-all duration-500 transform scale-95 opacity-0 max-h-0 mt-2 text-left">
-                        <p class="text-gray-600">Aceptamos pagos con tarjeta de crédito, débito y transferencias bancarias.
-                        </p>
+                        <p class="text-gray-600">No, Nutricampus no es un servicio de suscripción. Los estudiantes realizan
+                            reservas y pagos individuales para cada pedido, ofreciendo flexibilidad según sus necesidades y
+                            horarios.</p>
                     </div>
                 </div>
                 <!-- Pregunta 5 -->
@@ -220,8 +227,9 @@
                     </button>
                     <div
                         class="overflow-hidden transition-all duration-500 transform scale-95 opacity-0 max-h-0 mt-2 text-left">
-                        <p class="text-gray-600">Sí, nuestros menús son personalizables para adaptarse a tus necesidades
-                            dietéticas.</p>
+                        <p class="text-gray-600">Si tienes un inconveniente con tu pedido, puedes contactarnos directamente
+                            a través de la plataforma web o móvil, donde encontrarás soporte para resolver cualquier
+                            problema de manera rápida y eficiente.</p>
                     </div>
                 </div>
                 <!-- Pregunta 7 -->
@@ -232,8 +240,9 @@
                     </button>
                     <div
                         class="overflow-hidden transition-all duration-500 transform scale-95 opacity-0 max-h-0 mt-2 text-left">
-                        <p class="text-gray-600">Sí, nuestros menús son personalizables para adaptarse a tus necesidades
-                            dietéticas.</p>
+                        <p class="text-gray-600">Los métodos de pago de Nutricampus incluyen opciones accesibles desde la
+                            plataforma web o móvil, permitiendo pagos seguros y eficientes al momento de realizar la
+                            reserva.</p>
                     </div>
                 </div>
                 <!-- Pregunta 8 -->
@@ -244,8 +253,9 @@
                     </button>
                     <div
                         class="overflow-hidden transition-all duration-500 transform scale-95 opacity-0 max-h-0 mt-2 text-left">
-                        <p class="text-gray-600">Sí, nuestros menús son personalizables para adaptarse a tus necesidades
-                            dietéticas.</p>
+                        <p class="text-gray-600">En Nutricampus controlamos la calidad de la comida seleccionando
+                            ingredientes frescos y saludables, y trabajando con estándares estrictos en la preparación para
+                            garantizar seguridad y sabor en cada pedido.</p>
                     </div>
                 </div>
             </div>

@@ -1,60 +1,51 @@
 <x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
+    <div class="min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('{{ asset('images/fondoregistro2.jpg') }}');">
+        <div class="bg-white bg-opacity-70 p-8 rounded-lg shadow-lg w-96">
+            <h1 class="text-2xl font-bold text-center mb-4">Regístrate</h1>
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
 
-        <x-validation-errors class="mb-4" />
-
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-
-            <div>
-                <x-label for="name" value="{{ __('Name') }}" />
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            </div>
-
-            @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-                <div class="mt-4">
-                    <x-label for="terms">
-                        <div class="flex items-center">
-                            <x-checkbox name="terms" id="terms" required />
-
-                            <div class="ms-2">
-                                {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                                        'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Terms of Service').'</a>',
-                                        'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Privacy Policy').'</a>',
-                                ]) !!}
-                            </div>
-                        </div>
-                    </x-label>
+                <!-- Nombre -->
+                <div class="mb-4">
+                    <label for="name" class="block text-sm font-medium text-gray-700">Nombre:</label>
+                    <input id="name" type="text" name="name" :value="old('name')" required
+                        class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
                 </div>
-            @endif
 
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
+                <!-- Email -->
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700">E-mail:</label>
+                    <input id="email" type="email" name="email" :value="old('email')" required
+                        class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+                </div>
 
-                <x-button class="ms-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
-        </form>
-    </x-authentication-card>
+                <!-- Contraseña -->
+                <div class="mb-4">
+                    <label for="password" class="block text-sm font-medium text-gray-700">Contraseña:</label>
+                    <input id="password" type="password" name="password" required
+                        class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+                </div>
+
+                <!-- Confirmar Contraseña -->
+                <div class="mb-4">
+                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirmar contraseña:</label>
+                    <input id="password_confirmation" type="password" name="password_confirmation" required
+                        class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+                </div>
+
+                <!-- Botón Crear Cuenta -->
+                <div class="text-center">
+                    <button type="submit"
+                        class="bg-yellow-500 text-white px-6 py-2 rounded-full shadow-md hover:bg-yellow-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition-transform transform hover:scale-105">
+                        Crear cuenta
+                    </button>
+                </div>
+
+                <!-- Link de Ya Estás Registrado -->
+                <div class="mt-4 text-center">
+                    <a href="{{ route('login') }}" class="text-sm text-blue-500 hover:underline">¿Ya estás registrado?</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </x-guest-layout>

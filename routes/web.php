@@ -23,6 +23,34 @@ Route::middleware('web')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/producto/{id}', [HomeController::class, 'detalleProducto'])->name('producto.detalle');
 
+    Route::get('/quienes-somos', function () {
+        return view('quienessomos');
+    })->name('quienes-somos');
+
+    Route::get('/nuestros-servicios', function () {
+        return view('nuestrosservicios');
+    })->name('nuestros-servicios');
+
+    Route::get('/', function () {
+        return view('index'); // vista principal de la aplicación
+    })->name('home');
+
+    // Ruta para mostrar el formulario de contacto
+    Route::get('/contactanos', function () {
+        return view('contactanos');
+    })->name('contactanos');
+    Route::post('/contactanos/enviar', function (Illuminate\Http\Request $request) {
+        $data = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'email' => 'required|email',
+            'asunto' => 'required|string|max:255',
+            'comentarios' => 'required|string',
+        ]);
+
+        // Procesa los datos del formulario aquí
+        return back()->with('success', '¡Formulario enviado exitosamente!');
+    })->name('formulario.submit');
+
     // Carrito (rutas accesibles sin autenticación)
     Route::get('/carrito', [CarritoController::class, 'verCarrito'])->name('carrito.ver');
     Route::post('/carrito/agregar', [CarritoController::class, 'agregar'])->name('carrito.agregar');

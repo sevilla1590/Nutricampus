@@ -22,6 +22,9 @@ export default {
                 charm: ['"Charm"', 'sans-serif'],
                 crimson: ['"Crimson Text"', 'serif'],
                 amatic: ['"Amatic SC"', 'cursive'],
+                interTight: ['Inter Tight', 'sans-serif'],
+                fraunces: ['"Fraunces"', 'serif'],
+                montserrat: ['"Montserrat"', 'sans-serif'],
             },
             colors: {
                 customBeige: '#FFF5E7',
