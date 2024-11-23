@@ -22,6 +22,17 @@ class DatabaseSeeder extends Seeder
         ]);*/
 
         // Llamar al seeder de métodos de pago
-        $this->call(MetodoPagoSeeder::class);
+        //$this->call(MetodoPagoSeeder::class);
+
+        $this->call([
+            UsersSeeder::class,
+            ClienteSeeder::class,
+            RolSeeder::class,
+            AdministradorSeeder::class,
+            CocineroSeeder::class,
+            RepartidorSeeder::class,
+            MetodoPagoSeeder::class,
+            ProductoSeeder::class,
+        ]);
     }
 }

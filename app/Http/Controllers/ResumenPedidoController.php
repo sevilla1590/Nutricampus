@@ -18,15 +18,12 @@ class ResumenPedidoController extends Controller
             return redirect()->route('carrito.ver')->with('error', 'El carrito está vacío.');
         }
 
-        // Calcular el total del carrito
         $total = array_reduce($carrito, function ($carry, $item) {
             return $carry + ($item['precio'] * $item['cantidad']);
         }, 0);
 
-        // Configurar Mercado Pago
         MercadoPagoConfig::setAccessToken(env('MERCADOPAGO_ACCESS_TOKEN'));
 
-        // Construir los items para Mercado Pago
         $items = [];
         foreach ($carrito as $item) {
             $items[] = [
@@ -36,7 +33,6 @@ class ResumenPedidoController extends Controller
             ];
         }
 
-        // Crear preferencia en Mercado Pago
         $client = new PreferenceClient();
         try {
             $preference = $client->create([
@@ -59,16 +55,16 @@ class ResumenPedidoController extends Controller
         $payment_id = $request->query('collection_id');
         $status = $request->query('collection_status');
         $payment_type = $request->query('payment_type');
-        $cod_transaccion = $payment_id;
+        $nro_transaccion = $payment_id;
 
+        // Obtener carrito de la sesión
         $carrito = session()->get('carrito', []);
         if (empty($carrito)) {
             return redirect()->route('carrito.ver')->with('error', 'El carrito está vacío.');
         }
 
-        // Obtener ID del cliente desde la tabla users
-        $id_cliente = DB::table('users')->where('id', Auth::id())->value('id');
-
+        // Obtener el id_cliente basado en el usuario autenticado
+        $id_cliente = DB::table('cliente')->where('id', Auth::user()->id)->value('id_cliente');
         if (!$id_cliente) {
             return redirect()->route('home')->with('error', 'No se encontró un cliente válido para procesar el pedido.');
         }
@@ -77,29 +73,27 @@ class ResumenPedidoController extends Controller
         $metodos_pago = [
             'credit_card' => 1,
             'bank_transfer' => 2,
-            // Agregar más métodos según sea necesario
         ];
-
         $id_metodo_pago = $metodos_pago[$payment_type] ?? null;
 
         try {
-            // Crear registro en la tabla pedido
+            // Insertar en la tabla pedido
             $pedido_id = DB::table('pedido')->insertGetId([
                 'id_metodo_pago' => $id_metodo_pago,
                 'id_cliente' => $id_cliente,
-                'id_administrador' => null,
-                'id_repartidor' => null,
-                'id_cocinero' => null,
+                'id_administrador' => null, // Puede ser null
+                'id_repartidor' => null, // Puede ser null
+                'id_cocinero' => null, // Puede ser null
                 'fecha' => now(),
                 'total' => array_reduce($carrito, fn($carry, $item) => $carry + $item['precio'] * $item['cantidad'], 0),
                 'estado_pago' => $status,
                 'estado' => 'Pendiente',
                 'created_at' => now(),
                 'updated_at' => now(),
-                'cod_transaccion' => $cod_transaccion,
+                'nro_transaccion' => $nro_transaccion,
             ]);
 
-            // Insertar productos en detalle_pedido
+            // Insertar en la tabla detalle_pedido
             foreach ($carrito as $producto) {
                 DB::table('detalle_pedido')->insert([
                     'id_pedido' => $pedido_id,
@@ -115,7 +109,7 @@ class ResumenPedidoController extends Controller
             // Limpiar carrito
             session()->forget('carrito');
 
-            // Renderizar vista de pago exitoso
+            // Renderizar la vista de pago exitoso
             return view('pagoexitoso', [
                 'payment_id' => $payment_id,
                 'status' => $status === 'approved' ? 'Aprobado' : 'Fallido',
