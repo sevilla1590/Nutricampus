@@ -9,6 +9,8 @@ class MetodoPago extends Model
 {
     use HasFactory;
 
+    protected $table = 'metodo_pago'; // Nombre de la tabla
+
     protected $fillable = ['tipo', 'descripcion'];
 
     public function pedidos()

@@ -155,12 +155,16 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/pedido/{id}/estado', [PedidoController::class, 'verEstado'])->name('pedido.estado');
+Route::get('/mis-pedidos/{id}', [PedidoController::class, 'verDetallePedido'])->name('pedido.detalle');
 
+
+    
 // Rutas para gestionar, agregar y seleccionar menu
 
 Route::get('/menu/gestionar', [ProductoController::class, 'gestionarMenu'])->name('productos.gestionarMenu');
 Route::post('/menu/actualizar-carta', [ProductoController::class, 'actualizarCarta'])->name('productos.actualizarCarta');
 Route::post('/menu/crear-producto', [ProductoController::class, 'crearProducto'])->name('productos.crearProducto');
+Route::put('/menu/editar-producto/{id}', [ProductoController::class, 'editarProducto'])->name('productos.editarProducto');
 
 // Ruta para ver el menu ya procesado por administrador
 

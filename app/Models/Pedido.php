@@ -12,10 +12,18 @@ class Pedido extends Model
     // Especifica el nombre correcto de la tabla
     protected $table = 'pedido'; 
 
-    // Si tienes una clave primaria personalizada, defínela
-    protected $primaryKey = 'id'; 
-
-    protected $fillable = ['id_cliente', 'fecha', 'total', 'estado']; // Campos asignables
+    protected $fillable = [
+        'id_metodo_pago',
+        'id_cliente',
+        'id_administrador',
+        'id_repartidor',
+        'id_cocinero',
+        'fecha',
+        'total',
+        'estado_pago',
+        'estado',
+        'nro_transaccion',
+    ];
 
     public function metodoPago()
     {
@@ -46,9 +54,4 @@ class Pedido extends Model
     {
         return $this->hasMany(DetallePedido::class, 'id_pedido');
     }
-    public function producto()
-    {
-        return $this->belongsTo(Producto::class, 'id_producto');
-    }
-
 }

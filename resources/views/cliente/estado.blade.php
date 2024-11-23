@@ -2,11 +2,10 @@
 
 @section('content')
     <div class="container mx-auto my-8 px-4">
-        <h1 class="text-2xl font-bold mb-4">Estado del pedido con<br> número de transacción {{ $pedido->nro_transaccion }}</h1>
+        <h1 class="text-2xl font-bold mb-4">Estado del pedido con número de transacción {{ $pedido->nro_transaccion }}</h1>
 
         <div class="bg-white shadow-md rounded p-4 mb-6">
             <div class="flex justify-between items-center">
-                <p><strong>Producto:</strong> {{ $pedido->producto->nombre }}</p>
                 <p><strong>Total:</strong> S/ {{ number_format($pedido->total, 2) }}</p>
             </div>
 

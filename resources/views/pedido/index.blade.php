@@ -23,7 +23,6 @@
             <thead>
                 <tr>
                     <th class="border border-gray-300 px-4 py-2">Cliente</th>
-                    <th class="border border-gray-300 px-4 py-2">Producto</th>
                     <th class="border border-gray-300 px-4 py-2">Fecha</th>
                     <th class="border border-gray-300 px-4 py-2">Total</th>
                     <th class="border border-gray-300 px-4 py-2">Estado</th>
@@ -34,7 +33,6 @@
                 @foreach ($pedidos as $pedido)
                     <tr>
                         <td class="border border-gray-300 px-4 py-2">{{ $pedido->cliente->nombre ?? 'N/A' }}</td>
-                        <td class="border border-gray-300 px-4 py-2">{{ $pedido->producto->nombre ?? 'N/A' }}</td>
                         <td class="border border-gray-300 px-4 py-2">{{ $pedido->fecha }}</td>
                         <td class="border border-gray-300 px-4 py-2">{{ $pedido->total }}</td>
                         <td class="border border-gray-300 px-4 py-2">{{ $pedido->estado }}</td>
