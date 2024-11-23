@@ -59,8 +59,4 @@ class UsersSeeder extends Seeder
         // Insertar los usuarios en la tabla
         DB::table('users')->insert($users);
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 805e3361fbf3f8cf84d64439bb09f4c51965dc6d

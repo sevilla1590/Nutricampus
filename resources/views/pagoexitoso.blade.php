@@ -18,11 +18,7 @@
         </ul>
         <p class="mt-4"><strong>Estado del Pedido:</strong> {{ $estado_pedido }}</p>
         <div class="mt-6">
-<<<<<<< HEAD
-            <a href="{{ route('home') }}" class="bg-green-500 text-white px-4 py-2 rounded">Volver al Inicio</a>
-=======
             <a href="{{ route('index') }}" class="bg-green-500 text-white px-4 py-2 rounded">Volver al Inicio</a>
->>>>>>> 805e3361fbf3f8cf84d64439bb09f4c51965dc6d
         </div>
     </div>
 </div>

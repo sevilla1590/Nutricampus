@@ -66,11 +66,7 @@ class ResumenPedidoController extends Controller
         // Obtener el id_cliente basado en el usuario autenticado
         $id_cliente = DB::table('cliente')->where('id', Auth::user()->id)->value('id_cliente');
         if (!$id_cliente) {
-<<<<<<< HEAD
-            return redirect()->route('home')->with('error', 'No se encontró un cliente válido para procesar el pedido.');
-=======
             return redirect()->route('index')->with('error', 'No se encontró un cliente válido para procesar el pedido.');
->>>>>>> 805e3361fbf3f8cf84d64439bb09f4c51965dc6d
         }
 
         // Mapear el método de pago
@@ -133,8 +129,4 @@ class ResumenPedidoController extends Controller
     {
         return redirect()->route('resumen.pedido')->with('error', 'El pago no se pudo completar.');
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 805e3361fbf3f8cf84d64439bb09f4c51965dc6d

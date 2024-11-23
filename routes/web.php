@@ -16,10 +16,6 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CarritoController;
 
-<<<<<<< HEAD
-=======
-//alsdkasjdklj
->>>>>>> 805e3361fbf3f8cf84d64439bb09f4c51965dc6d
 // Middleware principal del grupo web
 Route::middleware('web')->group(function () {
     // Página principal
@@ -40,11 +36,6 @@ Route::middleware('web')->group(function () {
         Route::get('/pago-fallido', [ResumenPedidoController::class, 'pagoFallido'])->name('pago.fallido');
     });
 });
-<<<<<<< HEAD
-=======
-// asñdlkaskl
-
->>>>>>> 805e3361fbf3f8cf84d64439bb09f4c51965dc6d
 //Erek 16 nov madrugada
 //Ruta de "Cambiar Estado de Pedido"
 Route::get('/pedidos/listar', [PedidoController::class, 'listarPedidos'])->name('pedidos.listar');
