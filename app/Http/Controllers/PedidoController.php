@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pedido;
+use App\Models\Cliente;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,7 +12,7 @@ class PedidoController extends Controller
 {
     public function listarPedidos(Request $request)
     {
-        $query = Pedido::with(['cliente','producto']);
+        $query = Pedido::with(['cliente']);
 
         if ($request->filled('estado')) {
             $query->where('estado', $request->input('estado'));
@@ -22,20 +24,68 @@ class PedidoController extends Controller
 
     public function verEstado($id)
     {
-        // Buscar el pedido con su producto relacionado
-        $pedido = Pedido::with('producto')->findOrFail($id);
-
-        // Enviar el pedido a la vista
+        // Buscar el pedido por ID
+        $pedido = Pedido::find($id);
+    
+        // Validar que el pedido exista
+        if (!$pedido) {
+            return redirect()->route('mis.pedidos')->with('error', 'El pedido no existe.');
+        }
+    
+        // Pasar el pedido a la vista
         return view('cliente.estado', compact('pedido'));
     }
+    
 
     public function misPedidos()
     {
-        $cliente = Auth::user(); // Obtener el usuario autenticado
-        $pedidos = Pedido::where('id_cliente', $cliente->id)->with('producto')->get(); // Obtener pedidos del cliente
-
-        return view('cliente.mis-pedidos', compact('pedidos')); // Retornar la vista con los pedidos
+        $user = Auth::user(); // Usuario autenticado
+    
+        // Verificar si el usuario tiene un cliente asociado
+        $cliente = Cliente::where('id', $user->id)->first();
+    
+        if (!$cliente) {
+            abort(403, 'No tienes un perfil de cliente asociado.');
+        }
+    
+        // Obtener los pedidos del cliente autenticado
+        $pedidos = Pedido::where('id_cliente', $cliente->id_cliente)
+            ->with('metodoPago') // Relación con la tabla de métodos de pago
+            ->get();
+    
+        // Pasar los pedidos a la vista
+        return view('cliente.mis-pedidos', compact('pedidos'));
     }
+    
+    public function verDetallePedido($id)
+{
+    $user = Auth::user(); // Usuario autenticado
+
+    // Buscar el cliente asociado al usuario autenticado
+    $cliente = Cliente::where('id', $user->id)->first();
+
+    if (!$cliente) {
+        abort(403, 'No tienes un perfil de cliente asociado.');
+    }
+
+    // Buscar el pedido por ID
+    $pedido = Pedido::with(['metodoPago', 'detalles.producto']) // Cargar relaciones
+        ->where('id', $id)
+        ->first();
+
+    if (!$pedido) {
+        abort(404, 'Pedido no encontrado.');
+    }
+
+    // Verificar si el pedido pertenece al cliente autenticado
+    if ($pedido->id_cliente != $cliente->id_cliente) {
+        abort(403, 'No tienes permiso para ver este pedido.');
+    }
+
+    // Pasar el pedido a la vista
+    return view('cliente.detalle-pedido', compact('pedido'));
+}
+
 
     public function index()
     {

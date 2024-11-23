@@ -101,4 +101,27 @@ class ProductoController extends Controller
 
         return redirect()->route('productos.gestionarMenu')->with('success', 'Producto creado correctamente.');
     }
+
+    public function mostrarFormularioEdicion($id)
+    {
+        $producto = Producto::findOrFail($id); // Busca el producto o lanza un error 404 si no existe
+        return view('productos.formulario', compact('producto'));
+    }
+    
+    // Método para editar un producto existente
+    public function editarProducto(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'precio' => 'required|numeric|min:0',
+            'descripcion' => 'nullable|string',
+            'disponibilidad' => 'required|integer|min:0',
+        ]);
+
+        $producto = Producto::findOrFail($id);
+        $producto->update($validatedData);
+
+        return redirect()->back()->with('success', 'Producto actualizado exitosamente.');
+    }
+    
 }

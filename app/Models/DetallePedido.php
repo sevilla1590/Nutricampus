@@ -9,7 +9,15 @@ class DetallePedido extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['precio_unitario', 'cantidad', 'subtotal'];
+    // Especificar el nombre correcto de la tabla
+    protected $table = 'detalle_pedido'; // Cambia esto al nombre real de la tabla
+
+    protected $fillable = [
+        'id_pedido',
+        'id_producto',
+        'cantidad',
+        'precio_unitario',
+    ];
 
     public function pedido()
     {

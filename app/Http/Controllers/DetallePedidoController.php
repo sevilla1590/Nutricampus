@@ -63,5 +63,16 @@ class DetallePedidoController extends Controller
         $detallePedido->delete();
         return redirect()->route('detalle-pedido.index')->with('success', 'Detalle de Pedido deleted successfully');
     }
+
+    //Ver detalle de pedido para administrador
+    public function verDetallePedido($id)
+    {
+        // Obtener el pedido con sus detalles y cliente
+        $pedido = Pedido::with(['detalles.producto', 'cliente'])->findOrFail($id);
+    
+        // Retornar la vista con los datos
+        return view('admin.detalle-pedido', compact('pedido'));
+    }
+    
 }
 

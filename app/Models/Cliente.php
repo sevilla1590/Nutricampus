@@ -11,7 +11,16 @@ class Cliente extends Model
 
     protected $table = 'cliente'; // Especifica el nombre de la tabla
 
-    protected $fillable = ['nombre', 'apellido', 'direccion', 'preferencias', 'observaciones'];
+    protected $primaryKey = 'id_cliente'; // Llave primaria
+
+    protected $fillable = [
+        'id', // Llave foránea hacia la tabla users
+        'nombre',
+        'apellido',
+        'direccion',
+        'preferencias',
+        'observaciones'
+    ];
 
     public function user()
     {
