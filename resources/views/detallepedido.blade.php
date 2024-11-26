@@ -13,7 +13,8 @@
     <div class="flex flex-col md:flex-row items-start bg-white shadow-lg rounded-lg p-6">
         <!-- Image Section -->
         <div class="flex-shrink-0 mb-4 md:mb-0 md:mr-8">
-            <img src="{{ asset($producto->imagen ?? 'images/default.png') }}" alt="{{ $producto->nombre }}" class="w-80 h-auto rounded-lg border border-blue-200">
+            <img src="{{ asset('images/' . $producto->id . '.jpg') }}" alt="{{ $producto->nombre }}" class="w-80 h-auto rounded-lg border border-blue-200">
+            <!--<img src="{{ asset($producto->imagen ?? 'images/default.jpg') }}" alt="{{ $producto->nombre }}" class="w-80 h-auto rounded-lg border border-blue-200">-->
         </div>
 
         <!-- Details Section -->
