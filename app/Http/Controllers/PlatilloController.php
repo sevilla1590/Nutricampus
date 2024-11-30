@@ -11,11 +11,11 @@ class PlatilloController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-{
-    $productos = Producto::all(); // Obtiene todos los productos
-    dd($productos); // Muestra los datos y detiene la ejecución
-    return view('platillo.index', compact('productos'));
-}
+    {
+        $productos = Producto::all(); // Obtiene todos los productos
+        dd($productos); // Muestra los datos y detiene la ejecución
+        return view('platillo.index', compact('productos'));
+    }
 
     /**
      * Show the form for creating a new resource.

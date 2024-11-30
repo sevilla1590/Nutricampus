@@ -33,6 +33,13 @@
                        class="inline-block px-4 py-2 text-white bg-indigo-500 hover:bg-indigo-600 rounded-lg font-medium text-sm transition duration-300 shadow-md">
                         Ver Detalle
                     </a>
+                    <a href="{{ route('reembolsos.create', ['pedidoId' => $pedido->id]) }}" 
+                        class="btn btn-orange">
+                         Pedir Reembolso</a>
+                    <a href="{{ route('reembolsos.estado', ['pedidoId' => $pedido->id]) }}" 
+                        class="inline-block px-4 py-2 text-white bg-purple-500 hover:bg-purple-600 rounded-lg font-medium text-sm transition duration-300 shadow-md">
+                         Revisar Reembolso
+                    </a>
                 </div>
             </div>
         @empty

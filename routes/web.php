@@ -202,5 +202,20 @@ Route::get('/', [ProductoController::class, 'index'])->name('home');
 
 //Ruta crud platilos
 //Route::resource('platillo',PlatilloController::class);
-Route::get('platillo', [PlatilloController::class, 'index'])->name('platillo.index');Route::get('platillo', [PlatilloController::class, 'index'])->name('platillo.index');
+Route::get('platillo', [PlatilloController::class, 'index'])->name('platillo.index');
+Route::get('platillo', [PlatilloController::class, 'index'])->name('platillo.index');
 //Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');
+
+//Crear reembolso desde la vista cliente
+
+Route::get('/reembolsos/create/{pedidoId}', [ReembolsoController::class, 'create'])->name('reembolsos.create');
+Route::post('/reembolsos', [ReembolsoController::class, 'store'])->name('reembolsos.store');
+Route::get('/reemboolsos/revisar/{pedidoId}', [ReembolsoController:: class, 'show'])->name('reembolsos.revisar');
+Route::get('/reembolsos/{pedidoId}/estado', [ReembolsoController::class, 'show'])->name('reembolsos.estado');
+
+//Ruta para editar platillos
+Route::get('/menu/gestionarPlatillos', [ProductoController::class, 'gestionarPlatillos'])->name('productos.gestionarPlatillos');
+Route::get('/menu/editarPlatillo/{id}', [ProductoController::class, 'editarPlatillo'])->name('productos.editarPlatillo');
+Route::put('/menu/actualizarPlatillo/{id}', [ProductoController::class, 'actualizarPlatillo'])->name('productos.actualizarPlatillo');
+
+

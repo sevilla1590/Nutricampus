@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container mx-auto my-8 px-4">
@@ -34,6 +34,12 @@
         <textarea name="descripcion" id="descripcion" class="w-full border-gray-300 rounded p-2 focus:ring focus:ring-blue-200"></textarea>
     </div>
 
+    <!-- Campo Beneficios -->
+    <div class="mb-4">
+        <label class="block text-gray-700">Beneficios</label>
+        <textarea name="beneficios" id="beneficios" class="w-full border-gray-300 rounded p-2 focus:ring focus:ring-blue-200"></textarea>
+    </div>
+
     <!-- Campo Disponibilidad -->
     <div class="mb-4">
         <label class="block text-gray-700">Disponibilidad</label>
@@ -43,7 +49,6 @@
     <!-- Botones -->
     <div class="flex space-x-4">
         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded" id="btn-crear">Crear Producto</button>
-        <button type="button" class="bg-green-500 text-white px-4 py-2 rounded hidden" id="btn-actualizar">Actualizar Producto</button>
     </div>
 </form>
 
@@ -73,53 +78,6 @@
         </form>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-    const productoForm = document.getElementById('producto-form');
-    const productoIdField = document.getElementById('producto-id');
-    const nombreField = document.getElementById('nombre');
-    const precioField = document.getElementById('precio');
-    const descripcionField = document.getElementById('descripcion');
-    const disponibilidadField = document.getElementById('disponibilidad');
-    const btnCrear = document.getElementById('btn-crear');
-    const btnActualizar = document.getElementById('btn-actualizar');
-
-    // Manejar clic en productos de la lista
-    document.querySelectorAll('.producto-item').forEach(item => {
-        item.addEventListener('click', function () {
-            // Rellenar el formulario con los datos del producto seleccionado
-            productoIdField.value = this.dataset.id;
-            nombreField.value = this.dataset.nombre;
-            precioField.value = this.dataset.precio;
-            descripcionField.value = this.dataset.descripcion;
-            disponibilidadField.value = this.dataset.disponibilidad;
-
-            // Cambiar el formulario al modo "Actualizar"
-            productoForm.action = "{{ route('productos.editarProducto', ':id') }}".replace(':id', this.dataset.id);
-            productoForm.method = 'POST'; // Laravel interpreta POST con _method=PUT como PUT
-
-            // Mostrar el botón Actualizar y ocultar Crear
-            btnCrear.classList.add('hidden');
-            btnActualizar.classList.remove('hidden');
-        });
-    });
-
-    // Al cancelar la edición
-    btnActualizar.addEventListener('click', function () {
-        // Restablecer el formulario
-        productoForm.reset();
-        productoForm.action = "{{ route('productos.crearProducto') }}";
-        productoForm.method = 'POST'; // Volver a modo creación
-        productoIdField.value = '';
-
-        // Mostrar el botón Crear y ocultar Actualizar
-        btnCrear.classList.remove('hidden');
-        btnActualizar.classList.add('hidden');
-    });
-});
-
-    </script>
-
     <!-- Mostrar productos en la carta -->
     <div class="mt-6">
         <h2 class="text-lg font-semibold mb-4">Productos en la Carta</h2>
@@ -129,6 +87,10 @@
             @endforeach
         </ul>
     </div>
+
+    <a href="{{ route('admin.dashboard') }}" class="text-blue-500 hover:underline mt-4 block">
+            Volver al Panel de Administración
+        </a>
 
 </div>
 @endsection

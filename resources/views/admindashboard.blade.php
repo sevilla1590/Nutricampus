@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.admin')
 
 @section('content')
     <div class="container mx-auto my-8 px-4">
@@ -31,6 +31,13 @@
                 <h2 class="font-semibold text-lg">Gestionar Menú</h2>
                 <img src="{{ asset('images/menu.png') }}" alt="Gestionar Menú" class="my-4">
                 <a href="{{ route('productos.gestionarMenu') }}" class="text-blue-500 hover:underline">Ver Gestionar Menú</a>
+            </div>
+
+            <!-- Gestionar Platillos -->
+            <div class="bg-white shadow-md rounded p-4">
+                <h2 class="font-semibold text-lg">Gestionar Platillos</h2>
+                <img src="{{ asset('images/platillos.png') }}" alt="Gestionar Platillos" class="my-4">
+                <a href="{{ route('productos.gestionarPlatillos') }}" class="text-blue-500 hover:underline">Ver Platillos</a>
             </div>
 
         </div>

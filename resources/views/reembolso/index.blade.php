@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.admin')
 
 @section('content')
     <div class="container mx-auto my-8 px-4">
@@ -14,7 +14,6 @@
             <thead>
                 <tr>
                     <th class="border border-gray-300 px-4 py-2">Cliente</th>
-                    <th class="border border-gray-300 px-4 py-2">Producto</th>
                     <th class="border border-gray-300 px-4 py-2">Estado</th>
                     <th class="border border-gray-300 px-4 py-2">Motivo</th> <!-- Nueva columna -->
                     <th class="border border-gray-300 px-4 py-2">Acciones</th>
@@ -24,7 +23,6 @@
                 @foreach($reembolsos as $reembolso)
                     <tr>
                         <td class="border border-gray-300 px-4 py-2">{{ $reembolso->cliente->nombre ?? 'N/A'}}</td>
-                        <td class="border border-gray-300 px-4 py-2">{{ $reembolso->producto->nombre ?? 'N/A'}}</td>
                         <td class="border border-gray-300 px-4 py-2">{{ $reembolso->estado }}</td>
                         <td class="border border-gray-300 px-4 py-2">{{ $reembolso->motivo }}</td> <!-- Mostrar motivo -->
                         <td class="border border-gray-300 px-4 py-2">
