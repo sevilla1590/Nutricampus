@@ -82,7 +82,7 @@
                             Usuarios</a>
                     </li>
                     <li>
-                        <a href="{{ route('productos.gestionarMenu') }}" class="block py-2 px-4 hover:bg-gray-700">Activar Menú</a>
+                        <a href="{{ route('productos.gestionarMenu') }}" class="block py-2 px-4 hover:bg-gray-700">Activación de Menú</a>
                     </li>
                 </ul>
             </nav>
