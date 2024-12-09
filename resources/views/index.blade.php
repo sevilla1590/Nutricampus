@@ -16,26 +16,26 @@
                 <li>• Comida casera</li>
                 <li>• Personaliza tus preferencias</li>
             </ul>
-            <a href="#platillos"><button
-                    class="bg-yellow-500 ml-2 text-white font-alfa py-2 px-4 rounded hover:bg-yellow-600">Pedir
-                    Ahora</button>
+            <a href="#platillos">
+                <button class="bg-yellow-500 ml-2 text-white font-alfa py-2 px-4 rounded hover:bg-yellow-600">
+                    Pedir Ahora
+                </button>
             </a>
             <a href="{{ route('nuestros-servicios') }}">
                 <button class="bg-teal-500 text-white font-alfa py-2 px-4 rounded hover:bg-teal-600">
                     Nuestros Servicios
                 </button>
             </a>
-
         </div>
         <div>
             <h1 class="text-5xl font-lily text-customNaranja ml-24 text-center">Comer bien <br> es el primer paso <br> hacia
-                el éxito
-                académico.</h1>
+                el éxito académico.</h1>
         </div>
         <div>
             <img src="{{ asset('images/Platos.png') }}" alt="">
         </div>
     </div>
+
     <!-- Proceso de Pedido -->
     <div class="bg-white shadow-lg rounded-lg p-8">
         <h2 class="text-2xl font-bold font-fraunces text-gray-800 text-center mt-4">COME BIEN EN CUATRO PASOS</h2>
@@ -67,38 +67,47 @@
         </div>
     </div>
 
-
     <!-- Menús del Día -->
     <section id="platillos" class="py-10 bg-gray-50">
         <div class="max-w-5xl mx-auto text-center">
             <h2 class="text-6xl font-semibold font-charm text-customNaranja">Menú Del Día</h2>
             <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 @foreach ($productos as $producto)
-                    <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
-                        <img src="{{ asset('images/' . $producto->id . '.jpg') }}"
-                            alt="{{ $producto->nombre }}" class="w-full h-32 object-cover rounded">
+                    <div class="relative bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
+                        @if ($producto->disponibilidad <= 0)
+                            <div
+                                class="absolute inset-0 bg-gray-500 bg-opacity-50 rounded-lg flex items-center justify-center z-10">
+                                <span class="text-white font-bold text-lg bg-red-500 px-4 py-1 rounded">Agotado</span>
+                            </div>
+                        @endif
+                        <img src="{{ asset('images/' . $producto->id . '.jpg') }}" alt="{{ $producto->nombre }}"
+                            class="w-full h-32 object-cover rounded">
                         <a href="{{ route('producto.detalle', ['id' => $producto->id]) }}">
                             <h3 class="mt-4 text-lg font-semibold text-gray-800">{{ $producto->nombre }}</h3>
                         </a>
                         <p class="text-gray-500 text-sm">(450 gr)</p>
                         <p class="text-gray-900 font-bold mt-2">S/ {{ number_format($producto->precio, 2) }}</p>
-
-                        @if (auth()->check())
-                            <!-- Mostrar botón de añadir al carrito si está autenticado -->
-                            <form action="{{ route('carrito.agregar') }}" method="POST" class="mt-4">
-                                @csrf
-                                <input type="hidden" name="id" value="{{ $producto->id }}">
-                                <button type="submit"
-                                    class="w-full bg-yellow-500 text-white font-medium py-2 rounded hover:bg-yellow-600">
-                                    Añadir
-                                </button>
-                            </form>
+                        @if ($producto->disponibilidad > 0)
+                            @if (auth()->check())
+                                <form action="{{ route('carrito.agregar') }}" method="POST" class="mt-4">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $producto->id }}">
+                                    <button type="submit"
+                                        class="w-full bg-yellow-500 text-white font-medium py-2 rounded hover:bg-yellow-600">
+                                        Añadir
+                                    </button>
+                                </form>
+                            @else
+                                <a href="{{ route('login') }}"
+                                    class="block w-full mt-4 bg-red-500 text-white text-center font-medium py-2 rounded hover:bg-red-600">
+                                    Inicia sesión para añadir
+                                </a>
+                            @endif
                         @else
-                            <!-- Redirigir al login si no está autenticado -->
-                            <a href="{{ route('login') }}"
-                                class="block w-full mt-4 bg-red-500 text-white text-center font-medium py-2 rounded hover:bg-red-600">
-                                Inicia sesión para añadir
-                            </a>
+                            <button class="w-full bg-gray-400 text-white font-medium py-2 rounded cursor-not-allowed mt-4"
+                                disabled>
+                                Agotado
+                            </button>
                         @endif
                     </div>
                 @endforeach
@@ -109,53 +118,42 @@
     <!-- Beneficios -->
     <section class="py-10 bg-white">
         <div class="max-w-5xl mx-auto text-center">
-            <!-- Título -->
             <h2 class="text-3xl font-bold font-interTight text-gray-900 mb-6">Beneficios de comer sano fuera de casa</h2>
-            <!-- Contenedor de beneficios -->
             <div class="flex justify-between items-center">
                 <div>
                     <div>
                         <div class="flex justify-center"><img src="{{ asset('images/plata.png') }}" alt=""></div>
                         <p class="font-bold text-gray-800 mb-24">Ahorra dinero</p>
                     </div>
-
-                    <!-- Controla tus porciones -->
                     <div>
                         <div class="flex justify-center"><img src="{{ asset('images/comida.png') }}" alt=""></div>
                         <p class="font-bold text-gray-800 mb-24">Controla tus porciones</p>
                     </div>
                 </div>
-
-                <!-- Imagen principal en el centro -->
                 <div>
                     <img src="{{ asset('images/plato_central.png') }}" alt="Plato saludable"
                         class="w-60 h-60 rounded-full shadow-md">
                 </div>
-
                 <div>
                     <div>
                         <div class="flex justify-center"><img src="{{ asset('images/salud.png') }}" alt=""></div>
                         <p class="font-bold text-gray-800 mb-24">Mejora tu salud</p>
                     </div>
-
-                    <!-- Ahorra tiempo -->
                     <div>
                         <div class="flex justify-center"><img src="{{ asset('images/hora.png') }}" alt=""></div>
                         <p class="font-bold text-gray-800 mb-24">Ahorra tiempo</p>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
-
 
     <!-- Preguntas Frecuentes -->
     <section id="preguntas" class="py-10 bg-gray-50">
         <div class="max-w-5xl mx-auto text-center">
             <h2 class="text-3xl font-semibold font-crimson text-gray-800 mb-8">¿Tienes alguna duda?</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <!-- Pregunta 1 -->
+                <!-- Preguntas frecuentes -->
                 <div class="bg-white rounded-lg shadow-md p-4">
                     <button onclick="toggleAnswer(this)" class="flex justify-between w-full text-gray-700 font-semibold">
                         ¿Cómo hago mis pedidos?
@@ -167,7 +165,6 @@
                             en pocos pasos.</p>
                     </div>
                 </div>
-
                 <!-- Pregunta 2 -->
                 <div class="bg-white rounded-lg shadow-md p-4">
                     <button onclick="toggleAnswer(this)" class="flex justify-between w-full text-gray-700 font-semibold">
@@ -256,10 +253,9 @@
                         <p class="text-gray-600">En Nutricampus controlamos la calidad de la comida seleccionando
                             ingredientes frescos y saludables, y trabajando con estándares estrictos en la preparación para
                             garantizar seguridad y sabor en cada pedido.</p>
-                    </div>
+                    </div><!-- Más preguntas aquí -->
                 </div>
             </div>
-        </div>
     </section>
 
     <script>
@@ -267,7 +263,6 @@
             const answer = button.nextElementSibling;
             const isCollapsed = answer.style.maxHeight === '0px' || !answer.style.maxHeight;
 
-            // Cierra solo la respuesta que ya está abierta dentro del mismo contenedor
             const parent = button.closest('.grid');
             parent.querySelectorAll('.overflow-hidden').forEach(div => {
                 if (div !== answer) {
@@ -277,7 +272,6 @@
                 }
             });
 
-            // Despliega o contrae la respuesta seleccionada
             if (isCollapsed) {
                 const scrollHeight = answer.scrollHeight;
                 answer.style.maxHeight = scrollHeight + 'px';
@@ -290,8 +284,4 @@
             }
         }
     </script>
-
-    </body>
-
-    </html>
 @endsection

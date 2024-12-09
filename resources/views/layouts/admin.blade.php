@@ -66,7 +66,7 @@
             <nav>
                 <ul>
                     <li>
-                        <a href="{{ route('platillo.index') }}" class="block py-2 px-4 hover:bg-gray-700">Gestión de
+                        <a href="{{ route('productos.gestionarPlatillos') }}" class="block py-2 px-4 hover:bg-gray-700">Gestión de
                             Platillos</a>
                     </li>
                     <li>

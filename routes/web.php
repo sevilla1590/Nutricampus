@@ -217,5 +217,3 @@ Route::get('/reembolsos/{pedidoId}/estado', [ReembolsoController::class, 'show']
 Route::get('/menu/gestionarPlatillos', [ProductoController::class, 'gestionarPlatillos'])->name('productos.gestionarPlatillos');
 Route::get('/menu/editarPlatillo/{id}', [ProductoController::class, 'editarPlatillo'])->name('productos.editarPlatillo');
 Route::put('/menu/actualizarPlatillo/{id}', [ProductoController::class, 'actualizarPlatillo'])->name('productos.actualizarPlatillo');
-
-

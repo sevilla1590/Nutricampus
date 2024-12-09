@@ -1,96 +1,120 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container mx-auto my-8 px-4">
-    <h1 class="text-2xl font-bold text-gray-800 mb-4">Gestionar Menú</h1>
-
-    <!-- Formulario para crear/editar productos -->
-    <div class="bg-white shadow-md rounded p-4 mb-6">
-        <h2 class="text-lg font-semibold mb-4" id="form-title">Crear Producto</h2>
-        <form id="producto-form" action="{{ route('productos.crearProducto') }}" method="POST">
-    @csrf
-    <input type="hidden" name="id" id="producto-id" value="">
-
-    <!-- Campo para emular PUT en caso de edición -->
-    @if(isset($producto))
-        <input type="hidden" name="_method" value="PUT">
-    @endif
-
-    <!-- Campo Nombre -->
-    <div class="mb-4">
-        <label class="block text-gray-700">Nombre</label>
-        <input type="text" name="nombre" id="nombre" class="w-full border-gray-300 rounded p-2 focus:ring focus:ring-blue-200" required>
-    </div>
-
-    <!-- Campo Precio -->
-    <div class="mb-4">
-        <label class="block text-gray-700">Precio</label>
-        <input type="number" name="precio" id="precio" step="0.01" class="w-full border-gray-300 rounded p-2 focus:ring focus:ring-blue-200" required>
-    </div>
-
-    <!-- Campo Descripción -->
-    <div class="mb-4">
-        <label class="block text-gray-700">Descripción</label>
-        <textarea name="descripcion" id="descripcion" class="w-full border-gray-300 rounded p-2 focus:ring focus:ring-blue-200"></textarea>
-    </div>
-
-    <!-- Campo Beneficios -->
-    <div class="mb-4">
-        <label class="block text-gray-700">Beneficios</label>
-        <textarea name="beneficios" id="beneficios" class="w-full border-gray-300 rounded p-2 focus:ring focus:ring-blue-200"></textarea>
-    </div>
-
-    <!-- Campo Disponibilidad -->
-    <div class="mb-4">
-        <label class="block text-gray-700">Disponibilidad</label>
-        <input type="number" name="disponibilidad" id="disponibilidad" class="w-full border-gray-300 rounded p-2 focus:ring focus:ring-blue-200" required>
-    </div>
-
-    <!-- Botones -->
-    <div class="flex space-x-4">
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded" id="btn-crear">Crear Producto</button>
-    </div>
-</form>
-
-    </div>
-    
-    <!-- Gestionar productos en la carta -->
-    <div class="bg-white shadow-md rounded p-4">
-        <h2 class="text-lg font-semibold mb-4">Seleccionar Productos para la Carta</h2>
-        <form action="{{ route('productos.actualizarCarta') }}" method="POST">
-            @csrf
-            <div class="grid grid-cols-3 gap-4">
-                @foreach ($productos as $producto)
-                    <label class="flex items-center cursor-pointer producto-item"
-                        data-id="{{ $producto->id }}"
-                        data-nombre="{{ $producto->nombre }}"
-                        data-precio="{{ $producto->precio }}"
-                        data-descripcion="{{ $producto->descripcion }}"
-                        data-disponibilidad="{{ $producto->disponibilidad }}">
-                        <input type="checkbox" name="productos[]" value="{{ $producto->id }}"
-                            {{ $menu->contains($producto) ? 'checked' : '' }}
-                            class="mr-2">
-                        {{ $producto->nombre }} (S/ {{ number_format($producto->precio, 2) }})
-                    </label>
-                @endforeach
+    <div class="min-h-screen bg-gray-50 py-8">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <!-- Encabezado -->
+            <div class="flex items-center justify-between mb-8">
+                <h1 class="text-4xl font-bold text-gray-800">Gestionar Menú</h1>
+                <a href="{{ route('admin.dashboard') }}" class="text-gray-600 hover:text-gray-800 transition-colors">
+                    Volver al Panel
+                </a>
             </div>
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 mt-4 rounded">Actualizar Carta</button>
-        </form>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Columna izquierda -->
+                <div class="space-y-6">
+                    <!-- Formulario Crear Producto -->
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100">
+                        <div class="p-4 border-b border-gray-100">
+                            <h2 class="text-xl font-semibold text-gray-800">Crear Producto</h2>
+                        </div>
+
+                        <form id="producto-form" action="{{ route('productos.crearProducto') }}" method="POST"
+                            class="p-4 space-y-4">
+                            @csrf
+                            <input type="hidden" name="id" id="producto-id">
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700">Nombre</label>
+                                    <input type="text" name="nombre" id="nombre"
+                                        class="w-full px-3 py-2 border border-gray-200 rounded-lg" required>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700">Precio (S/)</label>
+                                    <input type="number" name="precio" id="precio" step="0.01"
+                                        class="w-full px-3 py-2 border border-gray-200 rounded-lg" required>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700">Descripción</label>
+                                    <textarea name="descripcion" id="descripcion" rows="2" class="w-full px-3 py-2 border border-gray-200 rounded-lg"></textarea>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700">Beneficios</label>
+                                    <textarea name="beneficios" id="beneficios" rows="2" class="w-full px-3 py-2 border border-gray-200 rounded-lg"></textarea>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="text-sm font-medium text-gray-700">Disponibilidad</label>
+                                <input type="number" name="disponibilidad" id="disponibilidad"
+                                    class="w-full px-3 py-2 border border-gray-200 rounded-lg" required>
+                            </div>
+
+                            <div class="flex justify-end">
+                                <button type="submit"
+                                    class="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700">
+                                    Crear Producto
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Resumen de Carta -->
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100">
+                        <div class="p-4 border-b border-gray-100">
+                            <h2 class="text-xl font-semibold text-gray-800">Resumen de Carta</h2>
+                            <p class="text-sm text-gray-500">Productos actualmente en la carta</p>
+                        </div>
+                        <div class="p-4">
+                            <div class="space-y-2">
+                                @foreach ($menu as $producto)
+                                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded-lg">
+                                        <span class="text-gray-800">{{ $producto->nombre }}</span>
+                                        <span class="text-gray-600">S/ {{ number_format($producto->precio, 2) }}</span>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna derecha: Selección de productos -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100">
+                    <div class="p-4 border-b border-gray-100">
+                        <h2 class="text-xl font-semibold text-gray-800">Productos en Carta</h2>
+                        <p class="text-sm text-gray-500">Selecciona los productos disponibles</p>
+                    </div>
+
+                    <form action="{{ route('productos.actualizarCarta') }}" method="POST" class="p-4">
+                        @csrf
+                        <div class="space-y-2">
+                            @foreach ($productos as $producto)
+                                <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer">
+                                    <input type="checkbox" name="productos[]" value="{{ $producto->id }}"
+                                        {{ $menu->contains($producto) ? 'checked' : '' }}
+                                        class="w-4 h-4 text-blue-600 rounded">
+                                    <div class="ml-3 flex justify-between w-full">
+                                        <span class="text-gray-800">{{ $producto->nombre }}</span>
+                                        <span class="text-gray-600">S/ {{ number_format($producto->precio, 2) }}</span>
+                                    </div>
+                                </label>
+                            @endforeach
+                        </div>
+
+                        <div class="mt-4">
+                            <button type="submit"
+                                class="w-full px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700">
+                                Actualizar Carta
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <!-- Mostrar productos en la carta -->
-    <div class="mt-6">
-        <h2 class="text-lg font-semibold mb-4">Productos en la Carta</h2>
-        <ul class="list-disc pl-5">
-            @foreach ($menu as $producto)
-                <li>{{ $producto->nombre }} (S/ {{ $producto->precio }})</li>
-            @endforeach
-        </ul>
-    </div>
-
-    <a href="{{ route('admin.dashboard') }}" class="text-blue-500 hover:underline mt-4 block">
-            Volver al Panel de Administración
-        </a>
-
-</div>
 @endsection
