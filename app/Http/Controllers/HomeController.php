@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Producto; // Importa el modelo Producto
 
 class HomeController extends Controller
@@ -17,10 +16,9 @@ class HomeController extends Controller
     }
 
     public function detalleProducto($id)
-{
-    $producto = Producto::findOrFail($id);
+    {
+        $producto = Producto::findOrFail($id);
 
-    return view('detallepedido', compact('producto'));
-}
-
+        return view('detallepedido', compact('producto'));
+    }
 }

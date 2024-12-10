@@ -18,7 +18,7 @@ class DetallePedido extends Model
         'precio_unitario',
         'cantidad',
         'subtotal',
-        
+
     ];
 
     public function pedido()

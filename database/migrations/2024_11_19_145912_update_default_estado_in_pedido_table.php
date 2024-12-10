@@ -25,4 +25,4 @@ class UpdateDefaultEstadoInPedidoTable extends Migration
             $table->string('estado')->default(null)->change(); // Elimina el valor predeterminado
         });
     }
-};
+}

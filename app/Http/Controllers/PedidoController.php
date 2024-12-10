@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pedido;
+use App\Mail\PedidoEntregadoMail;
 use App\Models\Cliente;
-
+use App\Models\Pedido;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class PedidoController extends Controller
 {
@@ -19,6 +20,7 @@ class PedidoController extends Controller
         }
 
         $pedidos = $query->get();
+
         return view('pedido.index', compact('pedidos')); // Pasa los datos a la vista
     }
 
@@ -26,37 +28,36 @@ class PedidoController extends Controller
     {
         // Buscar el pedido por ID
         $pedido = Pedido::find($id);
-    
+
         // Validar que el pedido exista
-        if (!$pedido) {
+        if (! $pedido) {
             return redirect()->route('mis.pedidos')->with('error', 'El pedido no existe.');
         }
-    
+
         // Pasar el pedido a la vista
         return view('cliente.estado', compact('pedido'));
     }
-    
 
     public function misPedidos()
     {
         $user = Auth::user(); // Usuario autenticado
-    
+
         // Verificar si el usuario tiene un cliente asociado
         $cliente = Cliente::where('id', $user->id)->first();
-    
-        if (!$cliente) {
+
+        if (! $cliente) {
             abort(403, 'No tienes un perfil de cliente asociado.');
         }
-    
+
         // Obtener los pedidos del cliente autenticado
         $pedidos = Pedido::where('id_cliente', $cliente->id_cliente)
             ->with('metodoPago') // Relación con la tabla de métodos de pago
             ->get();
-    
+
         // Pasar los pedidos a la vista
         return view('cliente.mis-pedidos', compact('pedidos'));
     }
-    
+
     public function verDetallePedido($id)
     {
         $user = Auth::user(); // Usuario autenticado
@@ -64,7 +65,7 @@ class PedidoController extends Controller
         // Buscar el cliente asociado al usuario autenticado
         $cliente = Cliente::where('id', $user->id)->first();
 
-        if (!$cliente) {
+        if (! $cliente) {
             abort(403, 'No tienes un perfil de cliente asociado.');
         }
 
@@ -73,7 +74,7 @@ class PedidoController extends Controller
             ->where('id', $id)
             ->first();
 
-        if (!$pedido) {
+        if (! $pedido) {
             abort(404, 'Pedido no encontrado.');
         }
 
@@ -86,10 +87,10 @@ class PedidoController extends Controller
         return view('cliente.detalle-pedido', compact('pedido'));
     }
 
-
     public function index()
     {
         $pedidos = Pedido::all();
+
         return view('pedido.index', compact('pedidos'));
     }
 
@@ -134,17 +135,31 @@ class PedidoController extends Controller
             'estado' => 'required|in:en cola,en preparación,en camino,entregado',
         ]);
 
-        // Actualizar el estado del pedido
+        // Verificar si el estado cambia a "entregado"
+        $estadoAnterior = $pedido->estado;
         $pedido->estado = $request->estado;
-        $pedido->save(); // Guardar los cambios en la base de datos
+        $pedido->save();
 
-        // Redirigir a la lista de pedidos con un mensaje de éxito
+        // Enviar correo si el estado cambia a "entregado"
+        if ($estadoAnterior !== 'entregado' && $pedido->estado === 'entregado') {
+            // Acceder al correo del usuario a través de las relaciones
+            $correo = $pedido->cliente->user->email ?? null;
+
+            if (! empty($correo)) {
+                Mail::to($correo)->send(new PedidoEntregadoMail($pedido));
+            } else {
+                return redirect()->route('pedidos.listar')->with('error', 'El cliente no tiene un correo electrónico válido.');
+            }
+        }
+
+        // Redirigir con mensaje de éxito
         return redirect()->route('pedidos.listar')->with('success', 'El estado del pedido ha sido actualizado correctamente.');
     }
 
     public function destroy(Pedido $pedido)
     {
         $pedido->delete();
+
         return redirect()->route('pedido.index')->with('success', 'Pedido deleted successfully');
     }
 }

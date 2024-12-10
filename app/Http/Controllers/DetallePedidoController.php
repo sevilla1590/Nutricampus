@@ -10,6 +10,7 @@ class DetallePedidoController extends Controller
     public function index()
     {
         $detallePedidos = DetallePedido::all();
+
         return view('detalle_pedido.index', compact('detallePedidos'));
     }
 
@@ -61,6 +62,7 @@ class DetallePedidoController extends Controller
     public function destroy(DetallePedido $detallePedido)
     {
         $detallePedido->delete();
+
         return redirect()->route('detalle-pedido.index')->with('success', 'Detalle de Pedido deleted successfully');
     }
 
@@ -69,10 +71,8 @@ class DetallePedidoController extends Controller
     {
         // Obtener el pedido con sus detalles y cliente
         $pedido = Pedido::with(['detalles.producto', 'cliente'])->findOrFail($id);
-    
+
         // Retornar la vista con los datos
         return view('admin.detalle-pedido', compact('pedido'));
     }
-    
 }
-

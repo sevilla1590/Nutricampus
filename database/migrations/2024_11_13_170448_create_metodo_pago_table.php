@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('descripcion', 75)->nullable();
             $table->timestamps();
         });
-        
+
     }
 
     /**

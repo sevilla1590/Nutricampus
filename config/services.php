@@ -36,8 +36,8 @@ return [
     ],
 
     'mercadopago' => [
-    'access_token' => env('APP_USR-4432869728547265-111615-51eb25b03b69589225f00ef021d9f908-2099452183'),
-    'public_key' => env('APP_USR-8a0b0825-004a-4b5f-bd62-df098b11ec3f'),
+        'access_token' => env('APP_USR-4432869728547265-111615-51eb25b03b69589225f00ef021d9f908-2099452183'),
+        'public_key' => env('APP_USR-8a0b0825-004a-4b5f-bd62-df098b11ec3f'),
     ],
 
 ];

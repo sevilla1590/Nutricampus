@@ -26,11 +26,11 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('reembolso', function (Blueprint $table) {
-             // Si quieres restaurar la columna en el futuro
-             $table->unsignedBigInteger('id_producto')->nullable();
-            
-             // Puedes agregar la clave foránea nuevamente
-             $table->foreign('id_producto')->references('id')->on('productos')->onDelete('cascade');
+            // Si quieres restaurar la columna en el futuro
+            $table->unsignedBigInteger('id_producto')->nullable();
+
+            // Puedes agregar la clave foránea nuevamente
+            $table->foreign('id_producto')->references('id')->on('productos')->onDelete('cascade');
         });
     }
 };

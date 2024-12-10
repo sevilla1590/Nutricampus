@@ -12,8 +12,11 @@ class Reembolso extends Model
     protected $table = 'reembolso'; // Nombre correcto de la tabla
 
     protected $primaryKey = 'id_reembolso'; // Clave primaria de la tabla
+
     public $incrementing = true; // Especifica que la clave es autoincremental
+
     protected $keyType = 'int'; // Tipo de dato de la clave primaria
+
     protected $dates = ['fecha_reembolso'];
 
     protected $fillable = [
@@ -23,7 +26,7 @@ class Reembolso extends Model
         'monto',
         'motivo',
         'estado',
-        'respuesta'
+        'respuesta',
     ];
 
     public function cliente()

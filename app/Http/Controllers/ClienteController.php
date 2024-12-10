@@ -10,6 +10,7 @@ class ClienteController extends Controller
     public function index()
     {
         $clientes = Cliente::all();
+
         return view('clientes.index', compact('clientes'));
     }
 
@@ -61,6 +62,7 @@ class ClienteController extends Controller
     public function destroy(Cliente $cliente)
     {
         $cliente->delete();
+
         return redirect()->route('clientes.index')->with('success', 'Cliente deleted successfully');
     }
 }

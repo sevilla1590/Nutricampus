@@ -10,7 +10,7 @@ class Pedido extends Model
     use HasFactory;
 
     // Especifica el nombre correcto de la tabla
-    protected $table = 'pedido'; 
+    protected $table = 'pedido';
 
     protected $fillable = [
         'id_metodo_pago',

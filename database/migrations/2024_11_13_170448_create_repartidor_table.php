@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('certificado', 50)->nullable();
             $table->timestamps();
         });
-        
+
     }
 
     /**

@@ -10,6 +10,7 @@ class ProductoController extends Controller
     public function index()
     {
         $productos = Producto::where('carta', 1)->get();
+
         return view('index', compact('productos'));
     }
 
@@ -59,6 +60,7 @@ class ProductoController extends Controller
     public function destroy(Producto $producto)
     {
         $producto->delete();
+
         return redirect()->route('producto.index')->with('success', 'Producto deleted successfully');
     }
 
@@ -106,10 +108,11 @@ class ProductoController extends Controller
     public function mostrarFormularioEdicion($id)
     {
         $producto = Producto::findOrFail($id); // Busca el producto o lanza un error 404 si no existe
+
         return view('productos.formulario', compact('producto'));
     }
 
-//Editar productos
+    //Editar productos
     public function gestionar()
     {
         // Obtener todos los productos de la base de datos
@@ -119,45 +122,45 @@ class ProductoController extends Controller
         return view('menu.lista', compact('producto'));
     }
 
-// Método para editar un producto
+    // Método para editar un producto
 
-public function gestionarPlatillos()
-{
-    // Obtener todos los platillos disponibles
-    $productos= Producto::all();
+    public function gestionarPlatillos()
+    {
+        // Obtener todos los platillos disponibles
+        $productos = Producto::all();
 
-    // Retornar la vista lista de platillos
-    return view('menu.lista', compact('productos'));
-}
+        // Retornar la vista lista de platillos
+        return view('menu.lista', compact('productos'));
+    }
 
-// Método para editar un platillo específico
-public function editarPlatillo($id)
-{
-    // Obtener el platillo por su ID
-    $producto = Producto::findOrFail($id);
+    // Método para editar un platillo específico
+    public function editarPlatillo($id)
+    {
+        // Obtener el platillo por su ID
+        $producto = Producto::findOrFail($id);
 
-    // Retornar la vista de edición con los datos del platillo
-    return view('menu.editar', compact('producto'));
-}
+        // Retornar la vista de edición con los datos del platillo
+        return view('menu.editar', compact('producto'));
+    }
 
-// Método para actualizar un platillo
-public function actualizarPlatillo(Request $request, $id)
-{
-    // Validar los datos del formulario
-    $request->validate([
-        'nombre' => 'required|string|max:255',
-        'descripcion' => 'nullable|string',
-        'precio' => 'required|numeric',
-        'disponibilidad' => 'required|integer',
-    ]);
+    // Método para actualizar un platillo
+    public function actualizarPlatillo(Request $request, $id)
+    {
+        // Validar los datos del formulario
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'nullable|string',
+            'precio' => 'required|numeric',
+            'disponibilidad' => 'required|integer',
+        ]);
 
-    // Obtener el platillo a actualizar
-    $producto = Producto::findOrFail($id);
+        // Obtener el platillo a actualizar
+        $producto = Producto::findOrFail($id);
 
-    // Actualizar los datos del platillo
-    $producto->update($request->all());
+        // Actualizar los datos del platillo
+        $producto->update($request->all());
 
-    // Redirigir de vuelta a la lista de platillos con un mensaje de éxito
-    return redirect()->route('productos.gestionarPlatillos')->with('success', 'Platillo actualizado correctamente.');
-}
+        // Redirigir de vuelta a la lista de platillos con un mensaje de éxito
+        return redirect()->route('productos.gestionarPlatillos')->with('success', 'Platillo actualizado correctamente.');
+    }
 }

@@ -13,27 +13,27 @@ return new class extends Migration
     {
         Schema::create('pedido', function (Blueprint $table) {
             $table->id(); // ID principal
-            
+
             // Relación con método de pago
             $table->unsignedBigInteger('id_metodo_pago')->nullable();
             $table->foreign('id_metodo_pago')->references('id')->on('metodo_pago')->onDelete('set null');
-            
+
             // Relación con cliente
             $table->unsignedBigInteger('id_cliente')->nullable();
             $table->foreign('id_cliente')->references('id_cliente')->on('cliente')->onDelete('set null');
-            
+
             // Relación con administrador
             $table->unsignedBigInteger('id_administrador')->nullable();
             $table->foreign('id_administrador')->references('id_administrador')->on('administrador')->onDelete('set null');
-            
+
             // Relación con repartidor
             $table->unsignedBigInteger('id_repartidor')->nullable();
             $table->foreign('id_repartidor')->references('id_repartidor')->on('repartidor')->onDelete('set null');
-            
+
             // Relación con cocinero
             $table->unsignedBigInteger('id_cocinero')->nullable();
             $table->foreign('id_cocinero')->references('id_cocinero')->on('cocinero')->onDelete('set null');
-            
+
             // Otros campos
             $table->dateTime('fecha'); // Fecha del pedido
             $table->decimal('total', 10, 2); // Total del pedido

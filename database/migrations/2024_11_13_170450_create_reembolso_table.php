@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('estado', 15)->nullable();
             $table->timestamps();
         });
-        
+
     }
 
     /**

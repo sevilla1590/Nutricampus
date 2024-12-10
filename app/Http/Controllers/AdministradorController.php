@@ -10,6 +10,7 @@ class AdministradorController extends Controller
     public function index()
     {
         $administradores = Administrador::all();
+
         return view('administradores.index', compact('administradores'));
     }
 
@@ -57,6 +58,7 @@ class AdministradorController extends Controller
     public function destroy(Administrador $administrador)
     {
         $administrador->delete();
+
         return redirect()->route('administradores.index')->with('success', 'Administrador deleted successfully');
     }
 }

@@ -14,6 +14,7 @@ class PlatilloController extends Controller
     {
         $productos = Producto::all(); // Obtiene todos los productos
         dd($productos); // Muestra los datos y detiene la ejecución
+
         return view('platillo.index', compact('productos'));
     }
 
@@ -39,6 +40,7 @@ class PlatilloController extends Controller
         ]);
 
         Producto::create($request->all());
+
         return redirect()->route('platillo.index')->with('success', 'Platillo creado exitosamente.');
     }
 
@@ -48,6 +50,7 @@ class PlatilloController extends Controller
     public function edit($id)
     {
         $producto = Producto::findOrFail($id);
+
         return view('platillo.edit', compact('producto'));
     }
 
@@ -66,6 +69,7 @@ class PlatilloController extends Controller
 
         $producto = Producto::findOrFail($id);
         $producto->update($request->all());
+
         return redirect()->route('platillo.index')->with('success', 'Platillo actualizado exitosamente.');
     }
 
@@ -75,6 +79,7 @@ class PlatilloController extends Controller
     public function destroy($id)
     {
         Producto::findOrFail($id)->delete();
+
         return redirect()->route('platillo.index')->with('success', 'Platillo eliminado exitosamente.');
     }
 }

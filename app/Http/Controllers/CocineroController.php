@@ -10,6 +10,7 @@ class CocineroController extends Controller
     public function index()
     {
         $cocineros = Cocinero::all();
+
         return view('cocineros.index', compact('cocineros'));
     }
 
@@ -57,6 +58,7 @@ class CocineroController extends Controller
     public function destroy(Cocinero $cocinero)
     {
         $cocinero->delete();
+
         return redirect()->route('cocineros.index')->with('success', 'Cocinero deleted successfully');
     }
 }

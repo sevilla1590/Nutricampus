@@ -1,21 +1,21 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdministradorController;
+use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CocineroController;
 use App\Http\Controllers\DetallePedidoController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\PlatilloController;
 use App\Http\Controllers\ProductoController;
-use App\Http\Controllers\ResumenPedidoController;
 use App\Http\Controllers\ReembolsoController;
 use App\Http\Controllers\RepartidorController;
+use App\Http\Controllers\ResumenPedidoController;
 use App\Http\Controllers\TeamController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CarritoController;
-use App\Http\Controllers\PlatilloController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 // Middleware principal del grupo web
 Route::middleware('web')->group(function () {
@@ -75,7 +75,9 @@ Route::get('/reembolsos', [ReembolsoController::class, 'index'])->name('reembols
 //Route::get('/reembolsos/{reembolso}/editar', [ReembolsoController::class, 'edit'])->name('reembolsos.edit');
 
 //Regresar a dashboard
-Route::get('/admin/dashboard', function () {return view('admindashboard');})->name('admin.dashboard');
+Route::get('/admin/dashboard', function () {
+    return view('admindashboard');
+})->name('admin.dashboard');
 //Erek 16 nov madrugada
 
 // Middleware para verificar autenticación y rol
@@ -84,7 +86,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    
+
     // Ruta de Dashboard que redirige según el rol
     Route::get('/dashboard', function () {
         if (Auth::check()) {
@@ -93,18 +95,20 @@ Route::middleware([
             if ($user->id_rol === 1) { // Ejemplo: id_rol 1 para administrador
                 return view('admindashboard'); // Vista específica para administradores
             }
+
             return redirect()->route('index'); // Redirigir a home si no es admin
         }
+
         return redirect()->route('login'); // Si el usuario no está autenticado
     })->name('dashboard'); // Nombrar correctamente como "dashboard"
-    
+
     // Rutas CRUD protegidas por el Middleware de autenticación
     Route::resource('users', UserController::class);
     Route::resource('administradores', AdministradorController::class);
     Route::resource('clientes', ClienteController::class);
     Route::resource('cocineros', CocineroController::class);
     Route::resource('detalle-pedidos', DetallePedidoController::class);
-//    Route::resource('pedidos', PedidoController::class);
+    //    Route::resource('pedidos', PedidoController::class);
     Route::resource('productos', ProductoController::class);
     Route::resource('reembolsos', ReembolsoController::class);
     Route::resource('repartidores', RepartidorController::class);
@@ -118,6 +122,7 @@ Route::middleware(['auth'])->group(function () {
         if (Auth::check() && Auth::user()->id_rol === 1) { // Solo administradores
             return app(\App\Http\Controllers\PedidoController::class)->listarPedidos($request);
         }
+
         return redirect()->route('home')->with('error', 'Acceso denegado.');
     })->name('pedidos.listar');
 
@@ -125,8 +130,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pedidos/{pedido}/edit', function ($pedido) {
         if (Auth::check() && Auth::user()->id_rol === 1) { // Solo administradores
             $pedidoModel = \App\Models\Pedido::findOrFail($pedido);
+
             return app(\App\Http\Controllers\PedidoController::class)->edit($pedidoModel);
         }
+
         return redirect()->route('home')->with('error', 'Acceso denegado.');
     })->name('pedido.edit');
 
@@ -134,8 +141,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pedidos/{pedido}', function ($pedido) {
         if (Auth::check() && Auth::user()->id_rol === 1) { // Solo administradores
             $pedidoModel = \App\Models\Pedido::findOrFail($pedido);
+
             return app(\App\Http\Controllers\PedidoController::class)->show($pedidoModel);
         }
+
         return redirect()->route('home')->with('error', 'Acceso denegado.');
     })->name('pedido.show');
 
@@ -143,12 +152,13 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/pedidos/{pedido}', function ($pedido) {
         if (Auth::check() && Auth::user()->id_rol === 1) { // Solo administradores
             $pedidoModel = \App\Models\Pedido::findOrFail($pedido);
+
             return app(\App\Http\Controllers\PedidoController::class)->update(request(), $pedidoModel);
         }
+
         return redirect()->route('home')->with('error', 'Acceso denegado.');
     })->name('pedido.update');
 });
-
 
 // Proteger las vistas de reembolsos para administradores
 Route::middleware(['auth'])->group(function () {
@@ -157,6 +167,7 @@ Route::middleware(['auth'])->group(function () {
         if (Auth::check() && Auth::user()->id_rol === 1) { // Verifica si el usuario está autenticado y es administrador
             return app(\App\Http\Controllers\ReembolsoController::class)->index();
         }
+
         return redirect()->route('dashboard')->with('error', 'Acceso denegado.');
     })->name('reembolsos.index');
 
@@ -165,6 +176,7 @@ Route::middleware(['auth'])->group(function () {
         if (Auth::check() && Auth::user()->id_rol === 1) { // Verifica si el usuario está autenticado y es administrador
             return app(\App\Http\Controllers\ReembolsoController::class)->edit($reembolso);
         }
+
         return redirect()->route('dashboard')->with('error', 'Acceso denegado.');
     })->name('reembolsos.edit');
 
@@ -173,6 +185,7 @@ Route::middleware(['auth'])->group(function () {
         if (Auth::check() && Auth::user()->id_rol === 1) { // Verifica si el usuario está autenticado y es administrador
             return app(\App\Http\Controllers\ReembolsoController::class)->update($request, $reembolso);
         }
+
         return redirect()->route('dashboard')->with('error', 'Acceso denegado.');
     })->name('reembolsos.update');
 });
@@ -186,8 +199,6 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/pedido/{id}/estado', [PedidoController::class, 'verEstado'])->name('pedido.estado');
 Route::get('/mis-pedidos/{id}', [PedidoController::class, 'verDetallePedido'])->name('pedido.detalle');
 
-
-    
 // Rutas para gestionar, agregar y seleccionar menu
 
 Route::get('/menu/gestionar', [ProductoController::class, 'gestionarMenu'])->name('productos.gestionarMenu');
@@ -210,10 +221,15 @@ Route::get('platillo', [PlatilloController::class, 'index'])->name('platillo.ind
 
 Route::get('/reembolsos/create/{pedidoId}', [ReembolsoController::class, 'create'])->name('reembolsos.create');
 Route::post('/reembolsos', [ReembolsoController::class, 'store'])->name('reembolsos.store');
-Route::get('/reemboolsos/revisar/{pedidoId}', [ReembolsoController:: class, 'show'])->name('reembolsos.revisar');
+Route::get('/reemboolsos/revisar/{pedidoId}', [ReembolsoController::class, 'show'])->name('reembolsos.revisar');
 Route::get('/reembolsos/{pedidoId}/estado', [ReembolsoController::class, 'show'])->name('reembolsos.estado');
 
 //Ruta para editar platillos
 Route::get('/menu/gestionarPlatillos', [ProductoController::class, 'gestionarPlatillos'])->name('productos.gestionarPlatillos');
 Route::get('/menu/editarPlatillo/{id}', [ProductoController::class, 'editarPlatillo'])->name('productos.editarPlatillo');
 Route::put('/menu/actualizarPlatillo/{id}', [ProductoController::class, 'actualizarPlatillo'])->name('productos.actualizarPlatillo');
+
+//Ruta compobante pdf
+Route::get('/comprobante/{payment_id}', [ResumenPedidoController::class, 'descargarComprobante'])
+    ->name('comprobante.descargar')
+    ->middleware('auth');

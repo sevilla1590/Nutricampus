@@ -10,6 +10,7 @@ class TeamController extends Controller
     public function index()
     {
         $teams = Team::all();
+
         return view('teams.index', compact('teams'));
     }
 
@@ -53,6 +54,7 @@ class TeamController extends Controller
     public function destroy(Team $team)
     {
         $team->delete();
+
         return redirect()->route('teams.index')->with('success', 'Team deleted successfully');
     }
 }

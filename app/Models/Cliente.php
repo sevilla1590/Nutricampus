@@ -19,7 +19,7 @@ class Cliente extends Model
         'apellido',
         'direccion',
         'preferencias',
-        'observaciones'
+        'observaciones',
     ];
 
     public function user()

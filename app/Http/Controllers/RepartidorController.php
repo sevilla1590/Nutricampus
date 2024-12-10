@@ -10,6 +10,7 @@ class RepartidorController extends Controller
     public function index()
     {
         $repartidores = Repartidor::all();
+
         return view('repartidor.index', compact('repartidores'));
     }
 
@@ -63,6 +64,7 @@ class RepartidorController extends Controller
     public function destroy(Repartidor $repartidor)
     {
         $repartidor->delete();
+
         return redirect()->route('repartidor.index')->with('success', 'Repartidor deleted successfully');
     }
 }

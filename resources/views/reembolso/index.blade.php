@@ -4,7 +4,7 @@
     <div class="container mx-auto my-8 px-4">
         <h1 class="text-2xl font-bold mb-4">Lista de Reembolsos</h1>
 
-        @if(session('success'))
+        @if (session('success'))
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
                 {{ session('success') }}
             </div>
@@ -20,13 +20,14 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($reembolsos as $reembolso)
+                @foreach ($reembolsos as $reembolso)
                     <tr>
-                        <td class="border border-gray-300 px-4 py-2">{{ $reembolso->cliente->nombre ?? 'N/A'}}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $reembolso->cliente->nombre ?? 'N/A' }}</td>
                         <td class="border border-gray-300 px-4 py-2">{{ $reembolso->estado }}</td>
                         <td class="border border-gray-300 px-4 py-2">{{ $reembolso->motivo }}</td> <!-- Mostrar motivo -->
                         <td class="border border-gray-300 px-4 py-2">
-                            <a href="{{ route('reembolsos.edit', $reembolso->id_reembolso) }}" class="text-blue-500 hover:underline">Editar</a>
+                            <a href="{{ route('reembolsos.edit', $reembolso->id_reembolso) }}"
+                                class="text-blue-500 hover:underline">Editar</a>
                         </td>
                     </tr>
                 @endforeach

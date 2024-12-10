@@ -27,8 +27,8 @@ class UsersSeeder extends Seeder
         // Generar 9 usuarios con rol de cliente
         for ($i = 1; $i <= 9; $i++) {
             $users[] = [
-                'name' => 'Cliente ' . $i,
-                'email' => 'cliente' . $i . '@nutricampus.com',
+                'name' => 'Cliente '.$i,
+                'email' => 'cliente'.$i.'@nutricampus.com',
                 'id_rol' => 2, // Rol de cliente
                 'password' => Hash::make('nutricampus'),
                 'created_at' => now(),

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('especialidad', 20)->nullable();
             $table->timestamps();
         });
-        
+
     }
 
     /**

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Reembolso;
 use App\Models\Pedido;
+use App\Models\Reembolso;
 use Illuminate\Http\Request;
 
 class ReembolsoController extends Controller
@@ -19,6 +19,7 @@ class ReembolsoController extends Controller
         $query = Reembolso::with(['cliente']);
 
         $reembolsos = $query->get();
+
         return view('reembolso.index', compact('reembolsos'));
     }
 
@@ -41,14 +42,14 @@ class ReembolsoController extends Controller
     public function store(Request $request)
     {
         // Verificar si el usuario está autenticado
-        if (!auth()->check()) {
+        if (! auth()->check()) {
             return redirect()->route('login')->with('error', 'Por favor, inicia sesión para crear un reembolso.');
         }
 
         // Obtener el pedido relacionado
         $pedido = Pedido::find($request->id_pedido); // Recupera el pedido por su ID
 
-        if (!$pedido) {
+        if (! $pedido) {
             return redirect()->back()->with('error', 'El pedido no existe o no es válido.');
         }
 
@@ -65,7 +66,6 @@ class ReembolsoController extends Controller
         return redirect()->route('mis.pedidos', ['pedidoId' => $pedido->id]) // Enlace a la ruta de los pedidos
             ->with('success', 'Reembolso creado exitosamente.');
     }
-
 
     //public function store(Request $request)
     //{
@@ -103,7 +103,7 @@ class ReembolsoController extends Controller
         } else {
             // Si no existe reembolso, redirigir o mostrar mensaje
             return redirect()->route('mis.pedidos', ['pedidoId' => $pedido->id])
-                             ->with('error', 'No se ha realizado un reembolso para este pedido.');
+                ->with('error', 'No se ha realizado un reembolso para este pedido.');
         }
     }
 
@@ -130,10 +130,10 @@ class ReembolsoController extends Controller
         return redirect()->route('reembolsos.index')->with('success', 'Reembolso actualizado correctamente.');
     }
 
-
     public function destroy(Reembolso $reembolso)
     {
         $reembolso->delete();
+
         return redirect()->route('reembolso.index')->with('success', 'Reembolso deleted successfully');
     }
 }
