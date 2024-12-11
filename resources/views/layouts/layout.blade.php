@@ -146,7 +146,7 @@
                 <div class="text-center md:text-left">
                     <h3 class="font-bold text-lg mb-4">Servicios</h3>
                     <ul class="space-y-2">
-                        <li><a href="#platillos" class="hover:text-yellow-400 transition duration-300">Platillos del
+                        <li><a href="{{ url('/index#platillos') }}" class="hover:text-yellow-400 transition duration-300">Platillos del
                                 día</a></li>
                     </ul>
                 </div>
