@@ -1,12 +1,15 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="container mx-auto my-8 px-4 max-w-7xl">
-        <div class="bg-white rounded-lg shadow-lg p-6">
-            <div class="flex justify-between items-center mb-6">
-                <h1 class="text-3xl font-bold text-gray-800">Gestionar Platillos del Menú</h1>
+    <div class="container mx-auto my-4 sm:my-8 px-4 max-w-7xl">
+        <div class="bg-gray-200 py-4 sm:py-8 w-full">
+            <!-- Encabezado -->
+            <br>
+            <br>
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                <h1 class="text-2xl sm:text-3xl font-bold text-gray-800">Gestionar Platillos del Menú</h1>
                 <a href="{{ route('admin.dashboard') }}"
-                    class="inline-flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg transition duration-200">
+                    class="inline-flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg transition duration-200 w-full sm:w-auto justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd"
                             d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
@@ -29,7 +32,8 @@
                 </div>
             @endif
 
-            <div class="overflow-x-auto bg-white rounded-lg shadow">
+            <!-- Tabla para pantallas medianas y grandes -->
+            <div class="hidden sm:block overflow-x-auto bg-white rounded-lg shadow">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
@@ -51,12 +55,10 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $producto->id }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $producto->nombre }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    ${{ number_format($producto->precio, 2) }}
-                                </td>
+                                    S/{{ number_format($producto->precio, 2) }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                                     <span
-                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full   
-                                        {{ $producto->disponibilidad ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $producto->disponibilidad ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
                                         {{ $producto->disponibilidad ? 'Disponible' : 'No disponible' }}
                                     </span>
                                 </td>
@@ -75,9 +77,43 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div>
-                    {{ $productos->links() }}
-                </div>
+            </div>
+
+            <!-- Vista de tarjetas para móviles -->
+            <div class="sm:hidden space-y-4">
+                @foreach ($productos as $producto)
+                    <div class="bg-white rounded-lg shadow-md p-4 border border-gray-200">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">{{ $producto->nombre }}</h3>
+                                <p class="text-sm text-gray-500">ID: {{ $producto->id }}</p>
+                            </div>
+                            <span
+                                class="px-2 py-1 text-xs font-semibold rounded-full {{ $producto->disponibilidad ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                {{ $producto->disponibilidad ? 'Disponible' : 'No disponible' }}
+                            </span>
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-lg font-semibold text-gray-900">${{ number_format($producto->precio, 2) }}</p>
+                        </div>
+                        <div class="flex justify-end">
+                            <a href="{{ route('productos.editarPlatillo', $producto->id) }}"
+                                class="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200 w-full justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path
+                                        d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                </svg>
+                                Editar Platillo
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            <!-- Paginación -->
+            <div class="mt-4">
+                {{ $productos->links() }}
             </div>
         </div>
     </div>

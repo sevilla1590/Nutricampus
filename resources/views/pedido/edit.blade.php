@@ -4,6 +4,8 @@
     <div class="min-h-screen bg-gray-200 py-8 w-full">
         <div class="container mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
             <!-- Encabezado con mejor espaciado -->
+            <br>
+            <br>
             <div class="mb-8">
                 <h1 class="text-3xl font-bold text-gray-900 leading-tight">
                     Cambiar Estado del Pedido

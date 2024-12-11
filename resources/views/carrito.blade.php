@@ -29,8 +29,8 @@
                         @foreach ($carrito as $item)
                             <tr data-id="{{ $item['id'] }}">
                                 <td class="border-b p-4 flex items-center">
-                                    <img src="{{ asset($item['imagen']) }}" alt="{{ $item['nombre'] }}"
-                                        class="w-16 h-16 mr-4">
+                                    <img src="{{ asset('images/' . $item['id'] . '.jpg') }}" alt="{{ $item['nombre'] }}"
+                                        class="w-16 h-16 object-cover rounded-md mr-4">
                                     {{ $item['nombre'] }}
                                 </td>
                                 <td class="border-b p-4">
@@ -113,7 +113,8 @@
                             document.getElementById('total').innerText = `S/ ${data.total.toFixed(2)}`;
                         } else {
                             alert(
-                                'Error al actualizar el carrito, cantidad solicitada supera stock disponible');
+                                'Error al actualizar el carrito, cantidad solicitada supera stock disponible'
+                            );
                         }
                     });
             });
