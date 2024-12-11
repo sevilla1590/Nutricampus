@@ -19,7 +19,7 @@ class PedidoController extends Controller
             $query->where('estado', $request->input('estado'));
         }
 
-        $pedidos = $query->get();
+        $pedidos = $query->paginate(5);
 
         return view('pedido.index', compact('pedidos')); // Pasa los datos a la vista
     }

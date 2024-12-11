@@ -11,9 +11,11 @@ use App\Http\Controllers\PlatilloController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ReembolsoController;
 use App\Http\Controllers\RepartidorController;
+use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\ResumenPedidoController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -233,3 +235,31 @@ Route::put('/menu/actualizarPlatillo/{id}', [ProductoController::class, 'actuali
 Route::get('/comprobante/{payment_id}', [ResumenPedidoController::class, 'descargarComprobante'])
     ->name('comprobante.descargar')
     ->middleware('auth');
+
+// En Gestión de Usuarios
+Route::middleware(['auth'])->group(function () {
+    // Gestión de Usuarios
+    Route::get('/gestion-usuarios', function () {
+        if (Auth::check() && Auth::user()->id_rol === 1) { // Verifica si es administrador
+            return app(\App\Http\Controllers\UserController::class)->gestionUsuarios();
+        }
+
+        return redirect()->route('dashboard')->with('error', 'Acceso denegado.');
+    })->name('usuarios.gestion');
+
+    // Promover usuario a administrador
+    Route::post('/promover-usuario', function (Request $request) {
+        if (Auth::check() && Auth::user()->id_rol === 1) {
+            return app(\App\Http\Controllers\UserController::class)->promoverAAdministrador($request);
+        }
+
+        return redirect()->route('dashboard')->with('error', 'Acceso denegado.');
+    })->name('usuarios.promocion');
+});
+Route::middleware(['auth', 'verificar.estado.cliente'])->group(function () {
+    Route::get('/perfil', [PerfilController::class, 'index'])->name('perfil');
+});
+Route::post('/usuarios/desactivar', [UserController::class, 'desactivarCliente'])->name('usuarios.desactivar');
+
+// Rutas para Reportes de Gestión
+Route::get('/reportes', [ReporteController::class, 'index'])->name('reportes.index');

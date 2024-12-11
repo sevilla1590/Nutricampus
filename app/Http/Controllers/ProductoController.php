@@ -127,7 +127,7 @@ class ProductoController extends Controller
     public function gestionarPlatillos()
     {
         // Obtener todos los platillos disponibles
-        $productos = Producto::all();
+        $productos = Producto::paginate(5);
 
         // Retornar la vista lista de platillos
         return view('menu.lista', compact('productos'));

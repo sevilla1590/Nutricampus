@@ -1,25 +1,25 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="min-h-screen bg-gray-50 py-8">
+    <div class="min-h-screen bg-gray-200 py-8 w-full">
         <div class="container mx-auto px-4 max-w-7xl">
             <!-- Encabezado con estadísticas -->
             <div class="mb-8">
                 <h1 class="text-4xl font-bold text-gray-900 tracking-tight mb-4">Panel de Administración</h1>
                 <div class="grid grid-cols-4 gap-4">
-                    <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+                    <div class="bg-white rounded-lg shadow-lg p-4 border border-gray-200">
                         <div class="text-sm text-gray-500">Pedidos Hoy</div>
                         <div class="text-2xl font-semibold text-gray-900">24</div>
                     </div>
-                    <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+                    <div class="bg-white rounded-lg shadow-lg p-4 border border-gray-200">
                         <div class="text-sm text-gray-500">Ingresos</div>
                         <div class="text-2xl font-semibold text-gray-900">S/ 1,254</div>
                     </div>
-                    <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+                    <div class="bg-white rounded-lg shadow-lg p-4 border border-gray-200">
                         <div class="text-sm text-gray-500">Usuarios Nuevos</div>
                         <div class="text-2xl font-semibold text-gray-900">12</div>
                     </div>
-                    <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+                    <div class="bg-white rounded-lg shadow-lg p-4 border border-gray-200">
                         <div class="text-sm text-gray-500">Platillos Activos</div>
                         <div class="text-2xl font-semibold text-gray-900">28</div>
                     </div>
@@ -30,7 +30,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Reportes de Gestión -->
                 <div
-                    class="bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-all duration-300">
+                    class="bg-white rounded-xl shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300">
                     <div class="p-6">
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-lg font-semibold text-gray-900">Reportes de Gestión</h2>
@@ -41,7 +41,7 @@
                             <img src="{{ asset('images/reportes.png') }}" alt="Reportes" class="w-24 h-24 object-contain">
                         </div>
                         <p class="text-sm text-gray-500 mb-4">Visualiza estadísticas y métricas importantes del negocio.</p>
-                        <a href="#"
+                        <a href="{{ route('reportes.index') }}"
                             class="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800">
                             Ver reportes
                             <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -53,7 +53,7 @@
 
                 <!-- Gestionar Reembolsos -->
                 <div
-                    class="bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-all duration-300">
+                    class="bg-white rounded-xl shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300">
                     <div class="p-6">
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-lg font-semibold text-gray-900">Reembolsos</h2>
@@ -77,7 +77,7 @@
 
                 <!-- Gestión de Pedidos -->
                 <div
-                    class="bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-all duration-300">
+                    class="bg-white rounded-xl shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300">
                     <div class="p-6">
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-lg font-semibold text-gray-900">Pedidos</h2>
@@ -100,7 +100,7 @@
 
                 <!-- Gestión de Usuarios -->
                 <div
-                    class="bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-all duration-300">
+                    class="bg-white rounded-xl shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300">
                     <div class="p-6">
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-lg font-semibold text-gray-900">Usuarios</h2>
@@ -111,7 +111,7 @@
                             <img src="{{ asset('images/usuarios.png') }}" alt="Usuarios" class="w-24 h-24 object-contain">
                         </div>
                         <p class="text-sm text-gray-500 mb-4">Administra las cuentas y permisos de usuarios.</p>
-                        <a href="#"
+                        <a href="{{ route('usuarios.gestion') }}""
                             class="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800">
                             Gestionar usuarios
                             <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -123,7 +123,7 @@
 
                 <!-- Gestionar Menú -->
                 <div
-                    class="bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-all duration-300">
+                    class="bg-white rounded-xl shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300">
                     <div class="p-6">
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-lg font-semibold text-gray-900">Menú</h2>
@@ -146,7 +146,7 @@
 
                 <!-- Gestionar Platillos -->
                 <div
-                    class="bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-all duration-300">
+                    class="bg-white rounded-xl shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300">
                     <div class="p-6">
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-lg font-semibold text-gray-900">Platillos</h2>
@@ -173,8 +173,8 @@
 
     @push('styles')
         <style>
-            .hover\:shadow-md:hover {
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            .hover\:shadow-xl:hover {
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             }
         </style>
     @endpush

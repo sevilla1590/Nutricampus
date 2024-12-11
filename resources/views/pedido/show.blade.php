@@ -30,10 +30,12 @@
                     <tbody>
                         @foreach ($pedido->detalles as $detalle)
                             <tr>
-                                <td class="border-b px-4 py-2">{{ $detalle->producto->nombre ?? 'Producto no disponible' }}</td>
+                                <td class="border-b px-4 py-2">{{ $detalle->producto->nombre ?? 'Producto no disponible' }}
+                                </td>
                                 <td class="border-b px-4 py-2">{{ $detalle->cantidad }}</td>
                                 <td class="border-b px-4 py-2">S/ {{ number_format($detalle->precio_unitario, 2) }}</td>
-                                <td class="border-b px-4 py-2">S/ {{ number_format($detalle->cantidad * $detalle->precio_unitario, 2) }}</td>
+                                <td class="border-b px-4 py-2">S/
+                                    {{ number_format($detalle->cantidad * $detalle->precio_unitario, 2) }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -41,6 +43,7 @@
             @endif
         </div>
 
-        <a href="{{ route('pedidos.listar') }}" class="text-blue-500 hover:underline mt-4 block">Volver a la lista de pedidos</a>
+        <a href="{{ route('pedidos.listar') }}" class="text-blue-500 hover:underline mt-4 block">Volver a la lista de
+            pedidos</a>
     </div>
 @endsection

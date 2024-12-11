@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
-<body class="bg-gray-50">
+<body class="bg-gray-200">
     <!-- Sidebar -->
     <div class="fixed inset-y-0 left-0 w-64 bg-[#1E293B] text-white transition-transform duration-200 ease-in-out z-30">
         <div class="flex flex-col h-full">
@@ -55,15 +55,15 @@
     <!-- Contenido principal -->
     <div class="ml-64">
         <!-- Header -->
-        <header class="bg-white shadow-sm border-b border-gray-200 h-16 fixed top-0 right-0 left-64 z-20">
+        <header class="bg-green-800 shadow-sm border-b border-green-900 h-16 fixed top-0 right-0 left-64 z-20">
             <div class="flex items-center justify-between h-full px-6">
                 <div class="flex items-center space-x-4">
-                    <h1 class="text-xl font-semibold text-gray-800">Panel de Administración</h1>
+                    <h1 class="text-xl font-semibold text-white">Panel de Administración</h1>
                 </div>
 
                 <div class="flex items-center space-x-4">
                     <!-- Notificaciones -->
-                    <button class="p-2 text-gray-400 hover:text-gray-600 relative">
+                    <button class="p-2 text-white hover:text-gray-200 relative">
                         <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -74,8 +74,8 @@
                     <!-- Perfil -->
                     <div class="relative" x-data="{ open: false }">
                         <button @click="open = !open" class="flex items-center space-x-3">
-                            <span class="text-sm font-medium text-gray-700">{{ Auth::user()->name }}</span>
-                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <span class="text-sm font-medium text-white">{{ Auth::user()->name }}</span>
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M19 9l-7 7-7-7" />
                             </svg>

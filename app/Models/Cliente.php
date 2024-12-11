@@ -9,6 +9,12 @@ class Cliente extends Model
 {
     use HasFactory;
 
+    const ESTADO_ACTIVO = 'activo';
+
+    const ESTADO_INACTIVO = 'inactivo';
+
+    const ESTADO_PROMOVIDO = 'promovido';
+
     protected $table = 'cliente'; // Especifica el nombre de la tabla
 
     protected $primaryKey = 'id_cliente'; // Llave primaria
@@ -20,6 +26,7 @@ class Cliente extends Model
         'direccion',
         'preferencias',
         'observaciones',
+        'estado',
     ];
 
     public function user()

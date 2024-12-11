@@ -6,13 +6,16 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Fortify\Fortify;
+use Illuminate\Validation\ValidationException;
+use Laravel\Fortify\Fortify;  // Importa la clase User
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -51,6 +54,33 @@ class FortifyServiceProvider extends ServiceProvider
             $email = (string) $request->email;
 
             return Limit::perMinute(5)->by($email.$request->ip());
+        });
+
+        Fortify::authenticateUsing(function ($request) {
+            $user = \App\Models\User::with('cliente')->where('email', $request->email)->first();
+
+            // Verifica si el usuario existe y si la contraseña es correcta
+            if ($user && Hash::check($request->password, $user->password)) {
+                // Si el usuario tiene un cliente asociado, verifica que esté 'activo'
+                if ($user->cliente) {
+                    if ($user->cliente->estado !== 'activo') {
+                        // Lanza una excepción para cuentas inactivas
+                        throw ValidationException::withMessages([
+                            Fortify::username() => 'Tu cuenta fue inactivada, comunícate con admin@nutricampus.com',
+                        ]);
+                    }
+
+                    return $user; // Autentica a clientes activos
+                } else {
+                    // Si no tiene cliente asociado (por ejemplo, es un administrador), permite el acceso
+                    return $user;
+                }
+            }
+
+            // Si no cumple las condiciones, devuelve un mensaje estándar
+            throw ValidationException::withMessages([
+                Fortify::username() => trans('auth.failed'),
+            ]);
         });
     }
 
