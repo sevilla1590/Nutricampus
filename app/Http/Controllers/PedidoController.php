@@ -13,7 +13,7 @@ class PedidoController extends Controller
 {
     public function listarPedidos(Request $request)
     {
-        $query = Pedido::with(['cliente']);
+        $query = Pedido::with(['cliente'])->orderBy('created_at', 'desc') ;
 
         if ($request->filled('estado')) {
             $query->where('estado', $request->input('estado'));
@@ -52,7 +52,8 @@ class PedidoController extends Controller
         // Obtener los pedidos del cliente autenticado
         $pedidos = Pedido::where('id_cliente', $cliente->id_cliente)
             ->with('metodoPago') // Relación con la tabla de métodos de pago
-            ->get();
+            ->orderBy('created_at', 'desc') // Ordenar por fecha de creación, del más reciente al más antiguo
+            ->paginate(3); // Paginación de 5 elementos por página
 
         // Pasar los pedidos a la vista
         return view('cliente.mis-pedidos', compact('pedidos'));

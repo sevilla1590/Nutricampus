@@ -130,8 +130,11 @@
                 </a>
             </div>
         @endforelse
+        <div>         
+            {{ $pedidos->links() }}
+        </div>
     </div>
-
+    
     <style>
         @keyframes fade-in {
             from {

@@ -39,13 +39,13 @@
                     <!-- Enlaces de navegación -->
                     <ul
                         class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-16 text-white font-bold uppercase lg:mx-auto">
-                        <li><a href="#platillos" class="block hover:text-yellow-400 transition duration-300">Platos del
+                        <li><a href="{{ url('/index#platillos') }}" class="block hover:text-yellow-400 transition duration-300">Platos del
                                 día</a></li>
                         <li><a href="{{ route('mis.pedidos') }}"
                                 class="block hover:text-yellow-400 transition duration-300">Mis pedidos</a></li>
                         <li><a href="{{ route('contactanos') }}"
                                 class="block hover:text-yellow-400 transition duration-300">Contáctanos</a></li>
-                        <li><a href="#preguntas" class="block hover:text-yellow-400 transition duration-300">FAQ</a>
+                        <li><a href="{{ url('/index#preguntas') }}" class="block hover:text-yellow-400 transition duration-300">FAQ</a>
                         </li>
                     </ul>
 

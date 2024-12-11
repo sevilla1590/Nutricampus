@@ -31,7 +31,7 @@
                             <select name="estado" id="estado"
                                 class="w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200">
                                 <option value="">Todos los estados</option>
-                                @foreach (['en cola', 'en preparación', 'en camino', 'entregado'] as $estado)
+                                @foreach (['pendiente', 'en preparación', 'en camino', 'entregado'] as $estado)
                                     <option value="{{ $estado }}"
                                         {{ request('estado') == $estado ? 'selected' : '' }}>
                                         {{ ucfirst($estado) }}
@@ -57,6 +57,10 @@
                                 </th>
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Número de transacción
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Fecha
                                 </th>
                                 <th scope="col"
@@ -79,6 +83,11 @@
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium text-gray-900">
                                             {{ $pedido->cliente->nombre ?? 'N/A' }}
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-900">
+                                            {{ $pedido->nro_transaccion ?? 'N/A' }}
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">

@@ -16,10 +16,8 @@
         <div class="flex flex-col h-full">
             <!-- Logo -->
             <div class="flex items-center justify-center h-16 bg-[#0F172A]">
-                <a href="{{ route('home') }}" class="flex items-center space-x-2">
                     <img src="{{ asset('images/NutricampusLogo.png') }}" alt="Logo" class="h-8">
                     <span class="font-semibold text-lg">Nutricampus</span>
-                </a>
             </div>
 
             <!-- Perfil de usuario -->
@@ -84,10 +82,6 @@
                         <!-- Menú desplegable -->
                         <div x-show="open" @click.away="open = false"
                             class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1">
-                            <a href="{{ route('profile.show') }}"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                Mi Perfil
-                            </a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit"
